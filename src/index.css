@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+ 
+@layer components {
+    /* reused styles */
+    .flex-center {
+      @apply flex items-center justify-center;
+    }
+    .container-wrapper {
+        @apply max-w-[1300px] mx-auto w-full;
+    }
+    .truncate {
+        @apply overflow-hidden whitespace-nowrap overflow-ellipsis;
+    }
+    /* end of reused styles */
+    
+  }

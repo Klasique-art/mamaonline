@@ -14,5 +14,9 @@
         @apply overflow-hidden whitespace-nowrap overflow-ellipsis;
     }
     /* end of reused styles */
-    
+    /* nav */
+    .nav-fixed {
+        @apply fixed top-0 left-0 w-full z-50 bg-primary shadow-md;
+    }
+    /* end of nav */
   }

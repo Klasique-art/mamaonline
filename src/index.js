@@ -11,6 +11,7 @@ import './index.css';
 import './App.css';
 
 const LazyHomePage = React.lazy(() => import('./App'));
+const LazyAuthPage = React.lazy(() => import('./pages/AuthPage'));
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,14 @@ const router = createBrowserRouter([
     element: (
       <React.Suspense fallback="Loading page">
         <LazyHomePage />
+      </React.Suspense>
+    ),
+  },
+  {
+    path: "/auth",
+    element: (
+      <React.Suspense fallback="Loading page">
+        <LazyAuthPage />
       </React.Suspense>
     ),
   },

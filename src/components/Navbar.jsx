@@ -1,5 +1,6 @@
 import React, {useState, useRef, useEffect} from 'react'
 import { Link } from 'react-router-dom'
+import 'animate.css'
 
 // custom imports
 import logo1 from '../assets/logo1.png'
@@ -38,7 +39,7 @@ const Navbar = () => {
 
   return (
     <nav role='navigation' className={`w-full flex py-2 justify-between items-center navbar z-[99999] duration-300 ${fixedNav ? 'nav-fixed' : ''}`}>
-      <Link to="/">
+      <Link to="/" className='animate__animated animate__bounceInDown'>
         <img src={logo1} alt="mama online logo" className='w-[100px] drop-shadow h-[65px]' />
       </Link>
       {/* nav list */}

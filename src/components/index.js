@@ -7,9 +7,11 @@ import Stats from "./Stats";
 import Testimonials from "./Testimonials";
 import Hero from "./Hero";
 import FunBigButton from "./FunBigButton";
-import Icon from "./Icon";
 import SearchButton from "./SearchButton";
 import SearchInput from "./SearchInput";
+import ServiceHero from "./ServiceHero";
+import ServiceHeroReverse from "./ServiceHeroReverse";
+import TestimonialCard from "./TestimonialCard";
 
 export { 
     Button, 
@@ -21,7 +23,9 @@ export {
     Testimonials, 
     Hero,
     FunBigButton,
-    Icon,
     SearchButton,
     SearchInput,
+    ServiceHero,
+    ServiceHeroReverse,
+    TestimonialCard,
 };

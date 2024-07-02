@@ -12,6 +12,7 @@
       #11101d 91.61%
     );
     --card-shadow: 0px 20px 100px -10px rgba(66, 71, 91, 0.1);
+    --blueGradientClr: #33bbcf;
   }
   
   .text-gradient {
@@ -114,7 +115,7 @@
   
   .feedback-card {
     background: transparent;
-  }
+}
   
   .feedback-card:hover {
     background: var(--black-gradient);
@@ -199,12 +200,44 @@ textarea, input {
 }
 
 /* custom */
+.border-gradient {
+  border: 2px solid var(--blueGradientClr);
+}
 .drop-shadow {
-    filter: drop-shadow(1px 14px 14px rgba(255, 255, 255, 0.20));
-    -webkit-filter: drop-shadow(1px 14px 14px rgba(255, 255, 255, 0.20));
+    filter: drop-shadow(1px 14px 14px rgba(51, 187, 207,.4));
+    -webkit-filter: drop-shadow(1px 14px 14px rgba(51, 187, 207,.4));
 }
 .search-input::placeholder {
     color: white;
+}
+.stat-card {
+  width: 15rem;
+  height: 10rem;
+  border: 2px solid var(--blueGradientClr);
+}
+@media(max-width: 768px) {
+  .stat-card {
+    width: 12rem;
+    height: 8rem;
+  }
+}
+
+.btn-glow {
+  box-shadow: 0 0 10px rgba(51, 187, 207,.2), 
+              0 0 10px rgba(51, 187, 207,.8), 
+              0 0 10px rgba(51, 187, 207,.1);
+  transition: .5s;
+  -webkit-transition: .5s;
+  -moz-transition: .5s;
+  -ms-transition: .5s;
+  -o-transition: .5s;
+} 
+.btn-glow:is(:hover, :focus-visible) {
+  box-shadow: 0 0 120px rgba(51, 187, 207,.2),
+              0 0 80px rgba(51, 187, 207,.4), 
+              0 0 40px rgba(51, 187, 207,.6), 
+              0 0 20px rgba(51, 187, 207,.8), 
+              0 0 10px rgba(51, 187, 207,.1);
 }
 /* mobile nav */
 .mobile-nav-active {
@@ -246,3 +279,96 @@ textarea, input {
     visibility: hidden;
   }
 }
+
+/* animations */
+.bounce_subtle {
+    animation: bounce_subtle 2s infinite;
+    -webkit-animation: bounce_subtle 2s infinite;
+}
+.fly_about_slow {
+    animation: fly_about_slow 2s infinite;
+    -webkit-animation: fly_about_slow 2s infinite;
+}
+.hover_up_down {
+    animation: hover_up_down 1s infinite;
+    -webkit-animation: hover_up_down 1s infinite;
+}
+
+/* keyframes */
+
+@keyframes bounce_subtle {
+    0%, 20%, 50%, 80%, 100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+    40% {
+        -webkit-transform: translateY(-20px);
+        transform: translateY(-20px);
+    }
+    60% {
+        -webkit-transform: translateY(-10px);
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes fly_about_slow {
+    0% {
+      transform: translateX(0);
+      -webkit-transform: translateX(0);
+      -moz-transform: translateX(0);
+      -ms-transform: translateX(0);
+      -o-transform: translateX(0);
+}
+    50% {
+        transform: translateX(10px);
+        -webkit-transform: translateX(10px);
+        -moz-transform: translateX(10px);
+        -ms-transform: translateX(10px);
+        -o-transform: translateX(10px);
+}
+    100% {
+      transform: translateX(0);
+      -webkit-transform: translateX(0);
+      -moz-transform: translateX(0);
+      -ms-transform: translateX(0);
+      -o-transform: translateX(0);
+}
+}
+
+@keyframes hover_up_down {
+    0% {
+        transform: translate(-50%,0);
+        -webkit-transform: translate(-50%,0);
+        -moz-transform: translate(-50%,0);
+        -ms-transform: translate(-50%,0);
+        -o-transform: translate(-50%,0);
+}
+    50% {
+        transform: translate(-50%,-10px);
+        -webkit-transform: translate(-50%,-10px);
+        -moz-transform: translate(-50%,-10px);
+        -ms-transform: translate(-50%,-10px);
+        -o-transform: translate(-50%,-10px);
+}
+    100% {
+        transform: translate(-50%,0);
+        -webkit-transform: translate(-50%,0);
+        -moz-transform: translate(-50%,0);
+        -ms-transform: translate(-50%,0);
+        -o-transform: translate(-50%,0);
+}
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .bounce_subtle {
+        animation: none;
+        -webkit-animation: none;
+}
+    .fly_about_slow {
+        animation: none;
+        -webkit-animation: none;
+}
+}
+/* end of keyframes */
+
+/* end of animations */

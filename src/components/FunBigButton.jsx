@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import styles from '../config/styles'
 
 const FunBigButton = ({text1="Get", text2="Started", linkTo}) => (
-    <Link to={linkTo} className={`${styles.flexCenter} w-[140px] h-[140px] rounded-full bg-blue-gradient p-[2px]`}>
+    <Link to={linkTo} className={`${styles.flexCenter} w-[140px] h-[140px] rounded-full bg-blue-gradient p-[2px] bounce_subtle`}>
         <div className={`${styles.flexCenter} flex-col bg-primary w-full h-full rounded-full gap-2`}>
             <div className={`${styles.flexStart} flex-row`}>
                 <p className='font-medium text-[18px] leading-[22px]'>

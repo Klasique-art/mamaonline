@@ -13,10 +13,19 @@
     .truncate {
         @apply overflow-hidden whitespace-nowrap overflow-ellipsis;
     }
+    article {
+        @apply py-6 sm:py-8 md:py-10 lg:py-14 xl:py-16;
+    }
+    .article-wrapper {
+        @apply p-2 w-full xl:max-w-[1280px] mx-auto;
+    }
+    .heading{
+        @apply text-center text-2xl sm:text-3xl md:text-4xl mb-2;
+    }
     /* end of reused styles */
     /* nav */
     .nav-fixed {
-        @apply fixed top-0 left-0 w-full z-50 bg-primary shadow-md;
+        @apply fixed top-0 left-0 w-full z-50 bg-primary shadow-md px-8;
     }
     /* end of nav */
   }

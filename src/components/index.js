@@ -12,6 +12,8 @@ import SearchInput from "./SearchInput";
 import ServiceHero from "./ServiceHero";
 import ServiceHeroReverse from "./ServiceHeroReverse";
 import TestimonialCard from "./TestimonialCard";
+import SubscribeCard from "./SubscribeCard";
+import Toast from "./Toast";
 
 export { 
     Button, 
@@ -28,4 +30,6 @@ export {
     ServiceHero,
     ServiceHeroReverse,
     TestimonialCard,
+    SubscribeCard,
+    Toast,
 };

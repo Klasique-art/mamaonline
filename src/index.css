@@ -13,8 +13,14 @@
     .truncate {
         @apply overflow-hidden whitespace-nowrap overflow-ellipsis;
     }
+    footer {
+        @apply py-6 sm:pt-8 md:pt-10 lg:pt-12 xl:pt-14;
+    }
     article {
         @apply py-6 sm:py-8 md:py-10 lg:py-14 xl:py-16;
+    }
+    .footer-wrapper {
+        @apply p-2 w-full xl:max-w-[1280px] mx-auto;
     }
     .article-wrapper {
         @apply p-2 w-full xl:max-w-[1280px] mx-auto;

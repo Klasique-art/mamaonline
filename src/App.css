@@ -239,6 +239,39 @@ textarea, input {
               0 0 20px rgba(51, 187, 207,.8), 
               0 0 10px rgba(51, 187, 207,.1);
 }
+/* toast */
+/* Toast.css */
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 30px 20px;
+  border-radius: 4px;
+  color: white;
+  font-weight: bold;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+.toast.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.toast.success {
+  background-color: var(--blueGradientClr);
+  box-shadow: 0 0 10px rgba(51, 187, 207,.2), 
+              0 0 10px rgba(51, 187, 207,.8), 
+              0 0 10px rgba(51, 187, 207,.1);
+  color: #11101d;
+}
+
+.toast.error {
+  background-color: #F44336;
+}
+/* end of toast */
 /* mobile nav */
 .mobile-nav-active {
   box-shadow: 0px 20px 100px -10px rgba(255, 251, 251, 0.2);

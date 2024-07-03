@@ -40,7 +40,7 @@ const Navbar = () => {
   return (
     <nav role='navigation' className={`w-full flex py-2 justify-between items-center navbar z-[99999] duration-300 ${fixedNav ? 'nav-fixed' : ''}`}>
       <Link to="/" className='animate__animated animate__bounceInDown'>
-        <img src={logo1} alt="mama online logo" className='w-[100px] drop-shadow h-[65px]' />
+        <img src={logo1} alt="mama online logo" className='w-[100px] drop-shadow ' />
       </Link>
       {/* nav list */}
       <ul className='hidden sm:flex justify-end items-center flex-1 gap-4'>

@@ -2,7 +2,7 @@ import React from 'react'
 
 // custom imports
 import styles from '../config/styles'
-import { Navbar, Hero, Stats, ServiceHero, ServiceHeroReverse, Button, Testimonials } from '../components'
+import { Navbar, Hero, Stats, ServiceHero, ServiceHeroReverse, Button, Testimonials, SubscribeCard, Footer } from '../components'
 import homeShopImg from '../assets/home_shop.png'
 import mallImg from '../assets/mall.png'
 
@@ -62,13 +62,18 @@ const HomePage = () => {
           </article>
           {/* end of services hero section */}
           <Testimonials />
-          clients
-          cta
-          footer
+          {/* subscribe */}
+          <article role='region'>
+            <div className="article-wrapper">
+              <SubscribeCard />
+            </div>
+          </article>
+          {/* end of subscribe */}
         </div>
       </div>
       {/* end of rest of app */}
       
+          <Footer />
     </div>
     // end of div to wrap the entire page
   )

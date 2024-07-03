@@ -14,6 +14,9 @@ import ServiceHeroReverse from "./ServiceHeroReverse";
 import TestimonialCard from "./TestimonialCard";
 import SubscribeCard from "./SubscribeCard";
 import Toast from "./Toast";
+import InputField from "./InputField";
+import LoginForm from "./LoginForm";
+import SignUpForm from "./SignUpForm";
 
 export { 
     Button, 
@@ -32,4 +35,7 @@ export {
     TestimonialCard,
     SubscribeCard,
     Toast,
+    InputField,
+    LoginForm,
+    SignUpForm,
 };

@@ -5,6 +5,7 @@ import {
   RouterProvider,
   
 } from "react-router-dom";
+import 'animate.css'
 
 // custom imports
 import './index.css';

@@ -198,8 +198,31 @@ textarea, input {
     resize: none;
     outline: none;
 }
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: #fff !important;
+}
 
+input:-webkit-autofill::first-line {
+    font-size: inherit;
+    font-family: inherit;
+    line-height: inherit;
+}
 /* custom */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
 .border-gradient {
   border: 2px solid var(--blueGradientClr);
 }

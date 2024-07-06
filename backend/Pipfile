@@ -11,6 +11,8 @@ dj-rest-auth = "*"
 django-allauth = "*"
 channels = "*"
 pillow = "==10.2.0"
+requests = "*"
+django-filter = "*"
 
 [dev-packages]
 

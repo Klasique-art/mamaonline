@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import * as Yup from 'yup'
 
 import { SubmitButton, FormField, Form } from './form'
+import { Link } from 'react-router-dom'
 
 const validationSchema = Yup.object().shape({
     email: Yup.string().required("Please enter email").email().label("Email"),
@@ -17,9 +18,7 @@ const LoginForm = () => {
         <div className="h-10 text-center text-2xl w-full py-1">
             <h2 
                 className='text-gradient animate__animated animate__bounceInDown'   
-                style={{
-                  animationDelay: '0.05s'
-                }}
+                style={{animationDelay: '0.05s'}}
             >Login Form</h2>
         </div>
         <div className="w-full ">
@@ -30,9 +29,7 @@ const LoginForm = () => {
             >
                 <div 
                     className="w-full my-8 animate__animated animate__bounceInDown"
-                    style={{
-                        animationDelay: '0.3s'
-                      }}
+                    style={{animationDelay: '0.3s'}}
                 >
                     <FormField
                         icon="envelope"
@@ -43,9 +40,7 @@ const LoginForm = () => {
                 </div>
                 <div 
                     className="w-full animate__animated animate__bounceInDown"
-                    style={{
-                        animationDelay: '0.5s'
-                    }}
+                    style={{animationDelay: '0.5s'}}
                 >
                     <FormField
                         icon={passwordVisible ? "eye-slash" : "eye"}
@@ -59,11 +54,15 @@ const LoginForm = () => {
                 </div>
                 <div 
                     className="w-full py-4 flex-center animate__animated animate__bounceInDown"
-                    style={{
-                        animationDelay: '0.7s'
-                    }}
+                    style={{animationDelay: '0.7s'}}
                 >
                     <SubmitButton title="Login"/>
+                </div>
+                <div 
+                    className="text-center p-2 rounded-md animate__animated animate__bounceInDown"
+                    style={{animationDelay: '0.9s'}}
+                >
+                    <Link to="/auth/forgot-password" className="text-[#33bbcf] " >forgot password?</Link>
                 </div>
             </Form>
         </div>

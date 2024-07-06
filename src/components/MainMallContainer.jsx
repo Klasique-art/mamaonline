@@ -1,18 +1,43 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import { Link } from 'react-router-dom'
 
 import Button from './Button'
 import pic1 from '../assets/pic1.png'
-import gadget from '../assets/gadget.png'
 import { formatNumber } from '../utils/utils'
 import SearchInput from './SearchInput'
 import Footer from './Footer'
+import { useProduct } from '../context/ProductProvider'
+import products from '../api/products'
 
 const MainMallContainer = ({ toggleSidebar,topBarStyle, ...otherProps }) => {
+  const [allProducts, setAllProducts] = useState([])
+  const { setProduct } = useProduct()
 
+  const fetchProducts = () => {
+    products.getProducts().then((res) => {
+      setAllProducts(res.data)
+    }).catch((error) => {
+      console.log("error fetching products", error)
+      if(error.response) {
+        console.log(error.response.data)
+      } else if (error.request) {
+        console.log(error.request)
+      } else {
+        console.log(error.message)
+      }
+    })
+  }
+
+  // fetch products
+  useEffect(() => {
+    fetchProducts()
+  }, [])
+  // scroll to top on page load
   useEffect(()=> {
     window.scrollTo(0,0)
   }, [])
+
+  console.log(allProducts)
 
   return (
     <div {...otherProps}>
@@ -59,24 +84,33 @@ const MainMallContainer = ({ toggleSidebar,topBarStyle, ...otherProps }) => {
           {/* end of search bar */}
           <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 py-10">
             {/* Dummy product cards */}
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
-              <Link key={item} className="card p-2 rounded shadow border-gradient" tabIndex="0" to={`/details/${item}`}>
-                <div className="w-full" data-aos="fade-up" data-aos-delay="100">
-                  <div className="w-full h-40 mb-2 border-gradient rounded-md" >
-                    <img src={gadget} alt="" className='w-full h-full object-contain' />
+            {allProducts?.map((item) => {
+              return (
+                <Link 
+                  key={item?.id} 
+                  className="card p-2 rounded shadow border-gradient" 
+                  tabIndex="0" 
+                  to={`/details/${item}?.id`} 
+                  onClick={() => setProduct(item)}
+                >
+                  <div className="w-full" data-aos="fade-up" data-aos-delay="100">
+                    <div className="w-full h-36 md:h-44 mb-2 border-gradient rounded-md p-1" >
+                      <img src={item?.image} alt="" className='w-full h-full object-contain' />
+                    </div>
+                    <h3 className="font-bold text-white truncate">Product {item?.name}</h3>
+                    <div className="flex items-center gap-2"> 
+                      <p className="text-gray-400 line-through text-sm sm:text-lg">$ {formatNumber(Number(item?.price))}</p>
+                      <p className="text-xl sm:text-2xl text-gradient">$ {formatNumber(Number(item?.price))}</p>
+                    </div>
+                    <p className='truncate-3 text-white mb-2'>{item?.description}</p>
+                    <Button style={{
+                      padding: '6px 12px',
+                    }} title="Add to cart"/>
                   </div>
-                  <h3 className="font-bold text-white truncate">Product {item}</h3>
-                  <div className="flex items-center gap-2"> 
-                    <p className="text-gray-400 line-through text-sm sm:text-lg">$ {formatNumber(19000)}</p>
-                    <p className="text-xl sm:text-2xl text-gradient">$ {formatNumber(19000)}</p>
-                  </div>
-                  <p className='truncate-3 text-white mb-2'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur voluptate nihil quaerat soluta perferendis sequi, sit unde dolorum, quo velit distinctio, tempore voluptates libero illo aut? Optio labore natus nulla!</p>
-                  <Button style={{
-                    padding: '6px 12px',
-                  }} title="Add to cart"/>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              )
+              }
+            )}
           </div>
         </main>
         {/* end of main */}

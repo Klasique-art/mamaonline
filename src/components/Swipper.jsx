@@ -10,7 +10,7 @@ import 'swiper/css/effect-flip';
 
 const Swipper = ({imgArray, imgAlt}) => {
   return (
-    <div className='container w-full h-full flex justify-center items-center bg-[rgba(51,187,207,.3)] rounded-md overflow-hidden'>
+    <div className='container w-full h-full flex justify-center items-center bg-[rgba(51,187,207,.2)] rounded-md overflow-hidden'>
         <Swiper
             modules={[Navigation, Pagination, Scrollbar, A11y, EffectFlip]}
             spaceBetween={10}

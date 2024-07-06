@@ -1,6 +1,6 @@
 import client from "./client";
 
-const endpoint = "/orders";
+const endpoint = "/api/orders";
 
 const getOrders = () => client.get(endpoint);
 

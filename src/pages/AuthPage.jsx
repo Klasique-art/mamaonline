@@ -5,10 +5,10 @@ import { Outlet, useLocation } from 'react-router-dom'
 import styles from '../config/styles'
 import { SignUpForm, LoginForm, Footer, Navbar } from '../components'
 import users from '../api/users' // failed
-import products from '../api/products'
 import categories from '../api/categories'
 import orders from '../api/orders' // failed
 import reviews from '../api/reviews'
+import register from '../api/register'
 
 const AuthPage = () => {
   const [showLoginForm, setShowLoginForm] = useState(true)
@@ -25,7 +25,7 @@ const AuthPage = () => {
 
   const testEndpoint = async () => {
     try {
-      const response = await reviews.getReviews()
+      const response = await register.resister('felix', 'feboapong@gmail.com', 'Klasique1', )
       console.log(response)
     } catch (error) {
       console.log(error)

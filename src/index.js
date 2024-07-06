@@ -10,6 +10,7 @@ import 'animate.css'
 // custom imports
 import './index.css';
 import './App.css';
+import ProductProvider from './context/ProductProvider';
 
 const LazyHomePage = React.lazy(() => import('./App'));
 const LazyAuthPage = React.lazy(() => import('./pages/AuthPage'));
@@ -127,7 +128,9 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <ProductProvider>
       <RouterProvider router={router} />
+    </ProductProvider>
   </React.StrictMode>
 );
 

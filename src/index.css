@@ -35,6 +35,9 @@
     .heading{
         @apply text-center text-2xl sm:text-3xl md:text-4xl mb-2;
     }
+    .details-quantity-btn {
+        @apply py-1 md:py-2 px-2 md:px-4 text-slate-800 md:text-xl text-lg rounded-md duration-300 active:scale-[0.9];
+    }
     /* end of reused styles */
     /* nav */
     .nav-fixed {

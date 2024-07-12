@@ -5,22 +5,39 @@ import {
   RouterProvider,
   
 } from "react-router-dom";
+import 'animate.css'
 
 // custom imports
 import './index.css';
 import './App.css';
+import ProductProvider from './context/ProductProvider';
 
 const LazyHomePage = React.lazy(() => import('./App'));
 const LazyAuthPage = React.lazy(() => import('./pages/AuthPage'));
 const LazyTestimonialsPage = React.lazy(() => import('./pages/TestimonialsPage'));
 const LazyServicesPage = React.lazy(() => import('./pages/ServicesPage'));
+const LazyMallPage = React.lazy(() => import('./pages/MallPage'));
+const LazyForgotPasswordPage = React.lazy(() => import('./pages/ForgotPasswordPage'));
+const LazyFAQPage = React.lazy(() => import('./pages/FAQPage'));
+const LazyDetailsPage = React.lazy(() => import('./pages/DetailsPage'));
+const LazyCartPage = React.lazy(() => import('./pages/CartPage'));
+
+const ErrorBoundary = ({ children }) => {
+  try {
+    return children;
+  } catch (error) {
+    return <div>Something went wrong: {error.message}</div>;
+  }
+};
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
       <React.Suspense fallback="Loading page">
-        <LazyHomePage />
+        <ErrorBoundary>
+          <LazyHomePage />
+        </ErrorBoundary>
       </React.Suspense>
     ),
   },
@@ -28,15 +45,31 @@ const router = createBrowserRouter([
     path: "/auth",
     element: (
       <React.Suspense fallback="Loading page">
-        <LazyAuthPage />
+        <ErrorBoundary>
+          <LazyAuthPage />
+        </ErrorBoundary>
       </React.Suspense>
     ),
+    children: [
+      {
+        path: "forgot-password",
+        element: (
+          <React.Suspense fallback="Loading page">
+            <ErrorBoundary>
+              <LazyForgotPasswordPage />
+            </ErrorBoundary>
+          </React.Suspense>
+        ),
+      },
+    ]
   },
   {
     path: "/testimonials",
     element: (
       <React.Suspense fallback="Loading page">
-        <LazyTestimonialsPage />
+        <ErrorBoundary>
+          <LazyTestimonialsPage />
+        </ErrorBoundary>
       </React.Suspense>
     ),
   },
@@ -44,7 +77,49 @@ const router = createBrowserRouter([
     path: "/services",
     element: (
       <React.Suspense fallback="Loading page">
-        <LazyServicesPage />
+        <ErrorBoundary>
+          <LazyServicesPage />
+        </ErrorBoundary>
+      </React.Suspense>
+    ),
+  },
+  {
+    path: "/mall",
+    element: (
+      <React.Suspense fallback="Loading page">
+        <ErrorBoundary>
+          <LazyMallPage />
+        </ErrorBoundary>
+      </React.Suspense>
+    ),
+  },
+  {
+    path: "/faq",
+    element: (
+      <React.Suspense fallback="Loading page">
+        <ErrorBoundary>
+          <LazyFAQPage />
+        </ErrorBoundary>
+      </React.Suspense>
+    ),
+  },
+  {
+    path: "/details/:slug",
+    element: (
+      <React.Suspense fallback="Loading page">
+        <ErrorBoundary>
+          <LazyDetailsPage />
+        </ErrorBoundary>
+      </React.Suspense>
+    ),
+  },
+  {
+    path: "/cart",
+    element: (
+      <React.Suspense fallback="Loading page">
+        <ErrorBoundary>
+          <LazyCartPage />
+        </ErrorBoundary>
       </React.Suspense>
     ),
   },
@@ -53,7 +128,9 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <ProductProvider>
       <RouterProvider router={router} />
+    </ProductProvider>
   </React.StrictMode>
 );
 

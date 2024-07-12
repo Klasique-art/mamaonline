@@ -11,8 +11,15 @@
       #6d6d6d -78.47%,
       #11101d 91.61%
     );
+    --black-gradient-2: linear-gradient(
+      -168.39deg,
+      #ffffff -278.56%,
+      #6d6d6d -78.47%,
+      #11101d 91.61%
+    );
     --card-shadow: 0px 20px 100px -10px rgba(66, 71, 91, 0.1);
     --blueGradientClr: #33bbcf;
+    --blueGradientClrOpac: rgba(51, 187, 207,.5);
   }
   
   .text-gradient {
@@ -108,6 +115,26 @@
     background: var(--black-gradient);
     box-shadow: var(--card-shadow);
   }
+
+  .card {
+    background: var(--black-gradient);
+    box-shadow: var(--card-shadow);
+    transition: all .4s ease;
+    -webkit-transition: all .4s ease;
+    -moz-transition: all .4s ease;
+    -ms-transition: all .4s ease;
+    -o-transition: all .4s ease;
+}
+
+  .card:is(:hover, :focus-visible) {
+    box-shadow: 0px 20px 100px -10px rgba(66, 71, 91, 0.2);
+    background: var(--black-gradient-2);
+    transform: translateY(-10px);
+    -webkit-transform: translateY(-10px);
+    -moz-transform: translateY(-10px);
+    -ms-transform: translateY(-10px);
+    -o-transform: translateY(-10px);
+  }
   
   .feedback-container .feedback-card:last-child {
     margin-right: 0px;
@@ -182,6 +209,9 @@ ul {
     list-style: none;
     padding: 0;
 }
+li {
+    list-style: none;
+}
 h1,h2,h3 {
     font-family: "Dosis", sans-serif;
     font-weight: 600;
@@ -198,8 +228,31 @@ textarea, input {
     resize: none;
     outline: none;
 }
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: #fff !important;
+}
 
+input:-webkit-autofill::first-line {
+    font-size: inherit;
+    font-family: inherit;
+    line-height: inherit;
+}
 /* custom */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
 .border-gradient {
   border: 2px solid var(--blueGradientClr);
 }
@@ -221,7 +274,37 @@ textarea, input {
     height: 8rem;
   }
 }
-
+.category-btn:is(:hover, :focus-within) .category-box {
+  visibility: visible;
+  pointer-events: all;
+  opacity: 1;
+  transform: translateY(0);
+  -webkit-transform: translateY(0);
+  -moz-transform: translateY(0);
+  -ms-transform: translateY(0);
+  -o-transform: translateY(0);
+}
+.category-box {
+  transform: translateY(50%);
+  -webkit-transform: translateY(50%);
+  -moz-transform: translateY(50%);
+  -ms-transform: translateY(50%);
+  -o-transform: translateY(50%);
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: .5s;
+  -webkit-transition: .5s;
+  -moz-transition: .5s;
+  -ms-transition: .5s;
+  -o-transition: .5s;
+}
+.truncate-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 .btn-glow {
   box-shadow: 0 0 10px rgba(51, 187, 207,.2), 
               0 0 10px rgba(51, 187, 207,.8), 
@@ -238,6 +321,20 @@ textarea, input {
               0 0 40px rgba(51, 187, 207,.6), 
               0 0 20px rgba(51, 187, 207,.8), 
               0 0 10px rgba(51, 187, 207,.1);
+}
+.item-glow-light:is(:hover, :focus-visible) {
+  box-shadow: 0 0 10px rgba(51, 187, 207,.2),                             
+              0 0 10px rgba(51, 187, 207,.8),                             
+              0 0 10px rgba(51, 187, 207,.1);
+  transition: .3s;
+  -webkit-transition: .3s;
+  -moz-transition: .3s;
+  -ms-transition: .3s;
+  -o-transition: .3s;
+}
+.mySliderSw {
+  width: 100%!important;
+  height: 100%!important;
 }
 /* toast */
 /* Toast.css */
@@ -405,3 +502,35 @@ textarea, input {
 /* end of keyframes */
 
 /* end of animations */
+
+/* sidebar and main mall container */
+@media (max-width: 768px) {
+  .sidebar-expanded {
+    left: 0!important;
+  }
+  .sidebar-collapsed {
+    left: -100%!important;
+  }
+  .search-form-width {
+    width: 70%!important;
+  }
+}
+
+@media (min-width: 768px) {
+  .mall-container-expanded {
+    left: 80px;
+    width: calc(100% - 80px);
+  }
+  .mall-container-collapsed {
+    left: 300px;
+    width: calc(100% - 300px);
+  }
+  .sidebar-expanded {
+    width: 300px;
+    left: 0;
+  }
+  .sidebar-collapsed {
+    width: 80px;
+    left: 0;
+  }
+}

@@ -78,6 +78,7 @@ const SearchInput = ({styles,...otherProps}) => {
     const handleChange = (e) => {
         const value = e.target.value
         setInputValue(value)
+        console.log(value)
 
         if(value) {
             const filteredSuggestions = mockSuggestions.filter(suggestion => suggestion?.name.toLowerCase().includes(value.toLowerCase()))
@@ -91,19 +92,19 @@ const SearchInput = ({styles,...otherProps}) => {
     }
 
   return (
-    <form action="#" {...otherProps} className={`w-[95%] max-w-[800px] h-20 flex items-center ${styles} bg-primary rounded-[10px] gap-2 justify-center shadow-md shadow-[rgba(255,255,255,.1)] z-[999] duration-300 search-bar`} 
+    <form action="#" {...otherProps} className={`w-[95%] max-w-[800px] h-16 sm:h-20 flex items-center ${styles} bg-primary rounded-[10px] gap-2 justify-center shadow-md shadow-[rgba(255,255,255,.05)] z-[999] duration-300 search-bar`} 
     role='search'
     >
         <input 
             type="search"
-            className='h-12 rounded-[30px] w-[85%] bg-black-gradient-2 px-4 py-1 search-input text-white text-lg md:text-xl'
+            className='h-10 sm:h-12 rounded-[30px] w-[85%] bg-black-gradient-2 px-4 py-1 search-input text-white text-lg md:text-xl'
             placeholder='search products...'
             value={inputValue}
             onChange={handleChange}
         />
         <button 
             type="submit" 
-            className='h-12 w-12 rounded-full bg-blue-gradient duration-300 hover:-translate-y-1 text-xl text-slate-900'
+            className='h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-blue-gradient duration-300 hover:-translate-y-1 text-xl text-slate-900'
             aria-label='search'
         >
             <i className="fa-solid fa-magnifying-glass-dollar"></i>

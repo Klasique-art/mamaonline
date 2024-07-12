@@ -41,7 +41,7 @@ const HomePage = () => {
                 <p className='mb-2' data-aos="fade-up" data-aos-delay="100">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eum nulla quasi illo vero earum, nemo assumenda totam ad illum consequuntur vitae provident corporis similique porro voluptatibus recusandae nostrum quas repudiandae.</p>
                 <p data-aos="fade-up" data-aos-delay="200">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit, labore! Minima odit animi nisi vero commodi odio ipsa nemo a quod excepturi in molestiae exercitationem fugit, iusto laborum pariatur placeat?</p>
                 <div data-aos="fade-up" data-aos-delay="300">
-                  <Button styles='mt-4' title='visit mall'>
+                  <Button styles='mt-4' title='visit mall' linkTo='/mall'>
                     <i className="fa-solid fa-cart-flatbed-suitcase"></i>
                   </Button>
                 </div>

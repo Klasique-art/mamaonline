@@ -13,6 +13,13 @@
     .truncate {
         @apply overflow-hidden whitespace-nowrap overflow-ellipsis;
     }
+    .main-mall-container {
+        @apply w-full duration-300 sm:w-[calc(100%-80px)] relative sm:left-[80px] md:w-[calc(100%-300px)] md:left-[300px] p-4;
+    }
+    .sidebar {
+        @apply bg-blue-600 text-white transition-all duration-300 ease-in-out
+        w-full md:w-[300px] sm:w-[80px] fixed top-0 h-screen z-50 -left-full sm:left-0 ;
+    }
     footer {
         @apply py-6 sm:pt-8 md:pt-10 lg:pt-12 xl:pt-14;
     }
@@ -27,6 +34,9 @@
     }
     .heading{
         @apply text-center text-2xl sm:text-3xl md:text-4xl mb-2;
+    }
+    .details-quantity-btn {
+        @apply py-1 md:py-2 px-2 md:px-4 text-slate-800 md:text-xl text-lg rounded-md duration-300 active:scale-[0.9];
     }
     /* end of reused styles */
     /* nav */

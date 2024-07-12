@@ -57,6 +57,12 @@ const Navbar = () => {
           >services</Link>
         </li>
         <li>
+            <Link 
+              to='/auth'
+              className='text-white text-[1.1rem]'
+            >Login</Link>
+        </li>
+        <li>
           <SearchButton 
             onClick={() => setShowSearchBar(prev => !prev)}
           />
@@ -94,6 +100,12 @@ const Navbar = () => {
               to='/services'
               className='text-white text-[1.1rem]'
             >services</Link>
+          </li>
+          <li>
+            <Link 
+              to='/auth'
+              className='text-white text-[1.1rem]'
+            >Login</Link>
           </li>
           <li>
             <SearchButton 

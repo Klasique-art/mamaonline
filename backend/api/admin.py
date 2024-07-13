@@ -1,21 +1,39 @@
 from django.contrib import admin
-from .models import Category, Product, Order, OrderItem, Review, Message
+from .models import Category, SubCategory, Product, ProductAttribute, Coupon, Order, OrderItem, Review, Message
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name',)
     search_fields = ('name',)
 
+@admin.register(SubCategory)
+class SubCategoryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'category')
+    list_filter = ('category',)
+    search_fields = ('name', 'category__name')
+
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'category', 'price', 'seller', 'is_approved', 'created_at')
-    list_filter = ('category', 'is_approved', 'created_at')
+    list_display = ('name', 'category', 'subcategory', 'original_price', 'discounted_price', 'seller', 'condition', 'is_approved', 'created_at')
+    list_filter = ('category', 'subcategory', 'is_approved', 'created_at', 'condition')
     search_fields = ('name', 'description', 'seller__username')
     actions = ['approve_products']
 
     def approve_products(self, request, queryset):
         queryset.update(is_approved=True)
     approve_products.short_description = "Approve selected products"
+
+@admin.register(ProductAttribute)
+class ProductAttributeAdmin(admin.ModelAdmin):
+    list_display = ('product', 'name', 'value')
+    list_filter = ('name',)
+    search_fields = ('product__name', 'name', 'value')
+
+@admin.register(Coupon)
+class CouponAdmin(admin.ModelAdmin):
+    list_display = ('code', 'discount', 'valid_from', 'valid_to', 'is_active')
+    list_filter = ('is_active', 'valid_from', 'valid_to')
+    search_fields = ('code',)
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):

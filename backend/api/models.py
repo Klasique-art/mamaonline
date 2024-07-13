@@ -1,10 +1,16 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
-
+from django.utils.text import slugify
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
+    slug = models.SlugField(unique=True, max_length=100)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -12,6 +18,12 @@ class Category(models.Model):
 class SubCategory(models.Model):
     name = models.CharField(max_length=100)
     category = models.ForeignKey(Category, related_name='subcategories', on_delete=models.CASCADE)
+    slug = models.SlugField(unique=True, max_length=100)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(f"{self.category.name}-{self.name}")
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.category.name} - {self.name}"
@@ -23,17 +35,23 @@ class Product(models.Model):
     ]
     
     name = models.CharField(max_length=200)
+    slug = models.SlugField(unique=True, max_length=200)
     description = models.TextField()
     original_price = models.DecimalField(max_digits=10, decimal_places=2)
     discounted_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE, null=True)
+    subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
     seller = models.ForeignKey(User, on_delete=models.CASCADE)
     condition = models.CharField(max_length=4, choices=CONDITION_CHOICES, default='NEW')
     location = models.CharField(max_length=200)
     image = models.ImageField(upload_to='product_images/')
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name

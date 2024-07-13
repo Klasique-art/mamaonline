@@ -20,6 +20,7 @@ import SignUpForm from "./SignUpForm";
 import Sidebar from "./Sidebar";
 import MainMallContainer from "./MainMallContainer";
 import Swipper from "./Swipper";
+import ReviewCard from "./ReviewCard";
 
 export { 
     Button, 
@@ -44,4 +45,5 @@ export {
     Sidebar,
     MainMallContainer,
     Swipper,
+    ReviewCard,
 };

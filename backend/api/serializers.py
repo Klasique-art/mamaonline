@@ -2,8 +2,6 @@ from rest_framework import serializers
 from .models import Category, SubCategory, Product, ProductAttribute, Coupon, Order, OrderItem, Review, Message
 from django.contrib.auth.models import User
 
-
-
 class SubCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = SubCategory
@@ -23,7 +21,7 @@ class ProductAttributeSerializer(serializers.ModelSerializer):
 
 class ProductSerializer(serializers.ModelSerializer):
     attributes = ProductAttributeSerializer(many=True, required=False)
-
+    
     class Meta:
         model = Product
         fields = '__all__'
@@ -39,9 +37,6 @@ class CouponSerializer(serializers.ModelSerializer):
     class Meta:
         model = Coupon
         fields = '__all__'
-
-
-
 
 class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
@@ -65,11 +60,7 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'username', 'email')
 
-
-
 class MessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Message
         fields = '__all__'
-
-

@@ -19,6 +19,10 @@ class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    lookup_field = 'slug'
+
+
+
 
 class SubCategoryViewSet(viewsets.ModelViewSet):
     queryset = SubCategory.objects.all()
@@ -26,6 +30,9 @@ class SubCategoryViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['category']
+    lookup_field = 'slug'
+
+
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
@@ -35,7 +42,7 @@ class ProductViewSet(viewsets.ModelViewSet):
     filterset_fields = ['category', 'subcategory', 'seller', 'condition', 'is_approved']
     search_fields = ['name', 'description']
     ordering_fields = ['original_price', 'discounted_price', 'created_at']
-
+    lookup_field = 'slug'
 
     @action(detail=False, methods=['get'])
     def discounted(self, request):
@@ -44,24 +51,24 @@ class ProductViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 
-
-
     @action(detail=False, methods=['get'])
     def by_subcategory(self, request):
-        subcategory_id = request.query_params.get('subcategory_id', None)
-        if subcategory_id is None:
-            return Response({"error": "Subcategory ID is required"}, status=status.HTTP_400_BAD_REQUEST)
+        subcategory_slug = request.query_params.get('subcategory_slug', None)
+        if subcategory_slug is None:
+            return Response({"error": "Subcategory slug is required"}, status=status.HTTP_400_BAD_REQUEST)
         
-        products = Product.objects.filter(subcategory_id=subcategory_id, is_approved=True)
+        products = Product.objects.filter(subcategory__slug=subcategory_slug, is_approved=True)
         serializer = self.get_serializer(products, many=True)
         return Response(serializer.data)
+
+
 
     def perform_create(self, serializer):
         product = serializer.save(seller=self.request.user, is_approved=False)
         self.send_notification("A new product has been submitted for approval.")
 
     @action(detail=True, methods=['post'], permission_classes=[permissions.IsAdminUser])
-    def approve(self, request, pk=None):
+    def approve(self, request, slug=None):
         product = self.get_object()
         product.is_approved = True
         product.save()

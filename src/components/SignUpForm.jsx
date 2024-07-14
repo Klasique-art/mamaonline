@@ -14,7 +14,7 @@ const validationSchema = Yup.object().shape({
     confirmPassword: Yup.string()
         .oneOf([Yup.ref('password'), null], "Passwords must match")
         .required("Please confirm your password")
-})
+}) //
 
 const SignUpForm = () => {
     const [passwordVisible, setPasswordVisible] = useState(false)

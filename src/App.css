@@ -322,6 +322,14 @@ input:-webkit-autofill::first-line {
               0 0 20px rgba(51, 187, 207,.8), 
               0 0 10px rgba(51, 187, 207,.1);
 }
+.item-glow-light {
+  transition: .5s;
+  -webkit-transition: .5s;
+  -moz-transition: .5s;
+  -ms-transition: .5s;
+  -o-transition: .5s;
+
+}
 .item-glow-light:is(:hover, :focus-visible) {
   box-shadow: 0 0 10px rgba(51, 187, 207,.2),                             
               0 0 10px rgba(51, 187, 207,.8),                             
@@ -409,7 +417,36 @@ input:-webkit-autofill::first-line {
     visibility: hidden;
   }
 }
-
+.review-container::-webkit-scrollbar {
+  height: 10px;
+  background: none;
+  width: 5px;
+  height: 5px;
+}
+.review-container::-webkit-scrollbar-thumb {
+  background: linear-gradient(    
+    157.81deg,   
+    #def9fa -43.27%,    
+    #bef3f5 -21.24%,    
+    #9dedf0 12.19%,    
+    #7de7eb 29.82%,    
+    #5ce1e6 51.94%,    
+    #33bbcf 90.29%  
+  );
+}
+.review-container::-webkit-scrollbar-track {
+  background: none;
+  margin: 0 auto;
+  border: 1px solid #33bbcf;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+.review-container::-webkit-scrollbar-button {
+  width: 160px;
+}
 /* animations */
 .bounce_subtle {
     animation: bounce_subtle 2s infinite;

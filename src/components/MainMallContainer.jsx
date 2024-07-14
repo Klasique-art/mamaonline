@@ -82,7 +82,7 @@ const MainMallContainer = ({ toggleSidebar,topBarStyle, ...otherProps }) => {
                }} styles="search-form-width animate__animated animate__bounceInDown" />
           </div>
           {/* end of search bar */}
-          <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 py-10">
+          <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 py-5">
             {/* Dummy product cards */}
             {allProducts?.map((item) => {
               return (
@@ -99,8 +99,8 @@ const MainMallContainer = ({ toggleSidebar,topBarStyle, ...otherProps }) => {
                     </div>
                     <h3 className="font-bold text-white truncate">Product {item?.name}</h3>
                     <div className="flex items-center gap-2"> 
-                      <p className="text-gray-400 line-through text-sm sm:text-lg">$ {formatNumber(Number(item?.price))}</p>
-                      <p className="text-xl sm:text-2xl text-gradient">$ {formatNumber(Number(item?.price))}</p>
+                      <p className="text-gray-400 line-through text-sm sm:text-lg" aria-label='old price'>$ {formatNumber(Number(item?.price))}</p>
+                      <p className="text-xl sm:text-2xl text-gradient" aria-label='new price'>$ {formatNumber(Number(item?.price))}</p>
                     </div>
                     <p className='truncate-3 text-white mb-2'>{item?.description}</p>
                     <Button style={{

@@ -81,7 +81,7 @@ const DetailsPage = () => {
                   {/* end of image box*/}
                   <div className="w-full sm:w-[calc(100%-25rem)] md:w-[calc(100%-32rem)]">
                     <h2 className='text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl text-gradient mb-2' data-aos="fade-up">{product?.name}</h2>
-                    <h3 className='text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2' data-aos="fade-up" data-aos-delay="100">Ghc {formatNumber(parseInt(product?.price))}</h3>
+                    <h3 className='text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2' data-aos="fade-up" data-aos-delay="100">Ghc {formatNumber(parseInt(product?.discounted_price))}</h3>
                     <p className="text-gray-200 text-sm xs:text-base md:text-lg mb-2 font-thin" data-aos="fade-up" data-aos-delay="200">{product?.description}</p>
                     {/* quantity controls */}
                     <div className="flex items-center gap-4 mb-4" data-aos="fade-up" data-aos-delay="300">

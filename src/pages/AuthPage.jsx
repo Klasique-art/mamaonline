@@ -25,7 +25,7 @@ const AuthPage = () => {
 
   const testEndpoint = async () => {
     try {
-      const response = await register.resister('felix', 'feboapong@gmail.com', 'Klasique1', )
+      const response = await register.resister('felix', 'feboapong@gmail.com', 'Klasique1', 'Klasique1' )
       console.log(response)
     } catch (error) {
       console.log(error)

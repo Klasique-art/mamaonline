@@ -2,27 +2,21 @@ from rest_framework import viewsets, permissions, status, filters
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from django_filters.rest_framework import DjangoFilterBackend
-from .models import Category, SubCategory, Product, Order, Review, Message, Coupon
+from .models import Category, SubCategory, Product, Order, Review, Message, Coupon, AttributeType, AttributeChoice, ProductAttribute
 from .serializers import (
     CategorySerializer, SubCategorySerializer, ProductSerializer, 
     OrderSerializer, ReviewSerializer, UserSerializer, MessageSerializer,
-    CouponSerializer
+    CouponSerializer, AttributeTypeSerializer, AttributeChoiceSerializer
 )
 from django.contrib.auth.models import User
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
-
-
-
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     lookup_field = 'slug'
-
-
-
 
 class SubCategoryViewSet(viewsets.ModelViewSet):
     queryset = SubCategory.objects.all()
@@ -31,8 +25,6 @@ class SubCategoryViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['category']
     lookup_field = 'slug'
-
-
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
@@ -50,7 +42,6 @@ class ProductViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(discounted_products, many=True)
         return Response(serializer.data)
 
-
     @action(detail=False, methods=['get'])
     def by_subcategory(self, request):
         subcategory_slug = request.query_params.get('subcategory_slug', None)
@@ -61,7 +52,40 @@ class ProductViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(products, many=True)
         return Response(serializer.data)
 
+    @action(detail=False, methods=['get'])
+    def attributes(self, request):
+        category_id = request.query_params.get('category_id')
+        if category_id:
+            attribute_types = AttributeType.objects.filter(category_id=category_id)
+            serializer = AttributeTypeSerializer(attribute_types, many=True)
+            return Response(serializer.data)
+        return Response({"error": "Category ID is required"}, status=status.HTTP_400_BAD_REQUEST)
 
+    @action(detail=True, methods=['post'])
+    def add_attribute(self, request, slug=None):
+        product = self.get_object()
+        attribute_choice_id = request.data.get('attribute_choice_id')
+        if attribute_choice_id:
+            try:
+                attribute_choice = AttributeChoice.objects.get(id=attribute_choice_id)
+                ProductAttribute.objects.create(product=product, attribute_choice=attribute_choice)
+                return Response({'status': 'attribute added'})
+            except AttributeChoice.DoesNotExist:
+                return Response({"error": "Invalid attribute choice ID"}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"error": "Attribute choice ID is required"}, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=True, methods=['delete'])
+    def remove_attribute(self, request, slug=None):
+        product = self.get_object()
+        attribute_id = request.data.get('attribute_id')
+        if attribute_id:
+            try:
+                attribute = ProductAttribute.objects.get(id=attribute_id, product=product)
+                attribute.delete()
+                return Response({'status': 'attribute removed'})
+            except ProductAttribute.DoesNotExist:
+                return Response({"error": "Invalid attribute ID"}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"error": "Attribute ID is required"}, status=status.HTTP_400_BAD_REQUEST)
 
     def perform_create(self, serializer):
         product = serializer.save(seller=self.request.user, is_approved=False)
@@ -85,14 +109,21 @@ class ProductViewSet(viewsets.ModelViewSet):
             }
         )
 
+class AttributeChoiceViewSet(viewsets.ModelViewSet):
+    queryset = AttributeChoice.objects.all()
+    serializer_class = AttributeChoiceSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['attribute_type']
 
-
-
-
-
-
-
-
+    @action(detail=False, methods=['get'])
+    def by_attribute_type(self, request):
+        attribute_type_id = request.query_params.get('attribute_type_id')
+        if attribute_type_id:
+            choices = AttributeChoice.objects.filter(attribute_type_id=attribute_type_id)
+            serializer = self.get_serializer(choices, many=True)
+            return Response(serializer.data)
+        return Response({"error": "Attribute Type ID is required"}, status=status.HTTP_400_BAD_REQUEST)
 
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
@@ -113,8 +144,6 @@ class OrderViewSet(viewsets.ModelViewSet):
             }
         )
 
-
-
 class ReviewViewSet(viewsets.ModelViewSet):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
@@ -127,8 +156,6 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAdminUser]
-
-
 
 class MessageViewSet(viewsets.ModelViewSet):
     serializer_class = MessageSerializer
@@ -156,8 +183,6 @@ class MessageViewSet(viewsets.ModelViewSet):
             return Response({'status': 'message marked as read'})
         else:
             return Response({'error': 'You are not the receiver of this message'}, status=status.HTTP_403_FORBIDDEN)
-
-
 
 class CouponViewSet(viewsets.ModelViewSet):
     queryset = Coupon.objects.all()

@@ -15,6 +15,9 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural = "Categories"
+
 class SubCategory(models.Model):
     name = models.CharField(max_length=100)
     category = models.ForeignKey(Category, related_name='subcategories', on_delete=models.CASCADE)
@@ -27,6 +30,23 @@ class SubCategory(models.Model):
 
     def __str__(self):
         return f"{self.category.name} - {self.name}"
+
+    class Meta:
+        verbose_name_plural = "Subcategories"
+
+class AttributeType(models.Model):
+    name = models.CharField(max_length=50)
+    category = models.ForeignKey(Category, related_name='attribute_types', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.category.name} - {self.name}"
+
+class AttributeChoice(models.Model):
+    attribute_type = models.ForeignKey(AttributeType, related_name='choices', on_delete=models.CASCADE)
+    value = models.CharField(max_length=50)
+
+    def __str__(self):
+        return f"{self.attribute_type.name} - {self.value}"
 
 class Product(models.Model):
     CONDITION_CHOICES = [
@@ -44,7 +64,6 @@ class Product(models.Model):
     seller = models.ForeignKey(User, on_delete=models.CASCADE)
     condition = models.CharField(max_length=4, choices=CONDITION_CHOICES, default='NEW')
     location = models.CharField(max_length=200)
-    image = models.ImageField(upload_to='product_images/')
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -58,24 +77,17 @@ class Product(models.Model):
 
 class ProductAttribute(models.Model):
     product = models.ForeignKey(Product, related_name='attributes', on_delete=models.CASCADE)
-    name = models.CharField(max_length=50)  # e.g., "Size", "Color"
-    value = models.CharField(max_length=50)  # e.g., "XL", "Red"
+    attribute_choice = models.ForeignKey(AttributeChoice, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.product.name} - {self.name}: {self.value}"
+        return f"{self.product.name} - {self.attribute_choice.attribute_type.name}: {self.attribute_choice.value}"
 
-class Coupon(models.Model):
-    code = models.CharField(max_length=20, unique=True)
-    discount = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
-    valid_from = models.DateTimeField()
-    valid_to = models.DateTimeField()
-    is_active = models.BooleanField(default=True)
+class ProductImage(models.Model):
+    product = models.ForeignKey(Product, related_name='images', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='product_images/')
 
     def __str__(self):
-        return self.code
-
-
-
+        return f"Image for {self.product.name}"
 
 class Order(models.Model):
     PAYMENT_METHODS = (
@@ -96,18 +108,26 @@ class Order(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='PENDING')
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f"Order {self.id} by {self.buyer.username}"
+
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
 
+    def __str__(self):
+        return f"{self.quantity} of {self.product.name} in Order {self.order.id}"
+
 class Review(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    rating = models.IntegerField()
+    rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
     comment = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f"Review for {self.product.name} by {self.user.username}"
 
 class Message(models.Model):
     sender = models.ForeignKey(User, related_name='sent_messages', on_delete=models.CASCADE)
@@ -122,4 +142,12 @@ class Message(models.Model):
     def __str__(self):
         return f"From {self.sender} to {self.receiver}"
 
+class Coupon(models.Model):
+    code = models.CharField(max_length=50, unique=True)
+    discount = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
+    valid_from = models.DateTimeField()
+    valid_to = models.DateTimeField()
+    is_active = models.BooleanField(default=True)
 
+    def __str__(self):
+        return f"Coupon {self.code} - {self.discount}% off"

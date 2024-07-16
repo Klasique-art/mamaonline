@@ -20,6 +20,10 @@
     --card-shadow: 0px 20px 100px -10px rgba(66, 71, 91, 0.1);
     --blueGradientClr: #33bbcf;
     --blueGradientClrOpac: rgba(51, 187, 207,.5);
+
+    --shadow-glow: 0 0 10px rgba(51, 187, 207,.2), 
+    0 0 10px rgba(51, 187, 207,.8), 
+    0 0 10px rgba(51, 187, 207,.1);
   }
   
   .text-gradient {
@@ -447,6 +451,58 @@ input:-webkit-autofill::first-line {
 .review-container::-webkit-scrollbar-button {
   width: 160px;
 }
+/* pagination */
+.pagination {
+  display: -ms-flexbox;
+  display: flex;
+  padding-left: 0;
+  list-style: none;
+  border-radius: 0.25rem;
+}
+.page-item:first-child .page-link {
+  margin-left: 0;
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.page-item:last-child .page-link {
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
+
+.page-item.active .page-link {
+  z-index: 3;
+  color: black;
+  background-color: var(--blueGradientClr);
+  border-color: #007bff;
+  box-shadow: var(--shadow-glow);
+}
+
+.page-link {
+  position: relative;
+  display: block;
+  padding: 0.5rem 0.75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: var(--blueGradientClr);
+  background-color: transparent;
+  border: 1px solid var(--blueGradientClr);
+}
+
+.page-link:hover {
+  z-index: 2;
+  color: var(--blueGradientClr);
+  text-decoration: none;
+  background-color: rgba(233, 236, 239,.1);
+  border-color: #dee2e6;
+}
+
+.page-link:focus {
+  z-index: 3;
+  outline: 0;
+  box-shadow: var(--shadow-glow);
+}
+/* end of pagination */
 /* animations */
 .bounce_subtle {
     animation: bounce_subtle 2s infinite;
@@ -460,8 +516,22 @@ input:-webkit-autofill::first-line {
     animation: hover_up_down 1s infinite;
     -webkit-animation: hover_up_down 1s infinite;
 }
+.loader {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  box-shadow: var(--shadow-glow);
+  animation: spin 1s linear infinite;
+  -webkit-animation: spin 1s linear infinite;
+}
 
 /* keyframes */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+} 
 
 @keyframes bounce_subtle {
     0%, 20%, 50%, 80%, 100% {

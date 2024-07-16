@@ -7,37 +7,43 @@ import { formatNumber } from '../utils/utils'
 import SearchInput from './SearchInput'
 import Footer from './Footer'
 import { useProduct } from '../context/ProductProvider'
-import products from '../api/products'
+import { useAllProducts } from '../context/AllProductsProvider'
+import { useCartItems } from '../context/CartItemsProvider'
+import Pagination from './Pagination'
+import CartToast from './CartToast'
 
 const MainMallContainer = ({ toggleSidebar,topBarStyle, ...otherProps }) => {
-  const [allProducts, setAllProducts] = useState([])
+  const [currentPage, setCurrentPage] = useState(1)
+  const [productsPerPage, setProductsPerPage] = useState(12)
+  const { allProducts, fetchProducts, allCategories, fetchCategories } = useAllProducts()
   const { setProduct } = useProduct()
-
-  const fetchProducts = () => {
-    products.getProducts().then((res) => {
-      setAllProducts(res.data)
-    }).catch((error) => {
-      console.log("error fetching products", error)
-      if(error.response) {
-        console.log(error.response.data)
-      } else if (error.request) {
-        console.log(error.request)
-      } else {
-        console.log(error.message)
-      }
-    })
-  }
+  const {cartItems, addToCart} = useCartItems()
+  const [showToast, setShowToast] = useState(false)
 
   // fetch products
   useEffect(() => {
     fetchProducts()
+    fetchCategories()
   }, [])
   // scroll to top on page load
   useEffect(()=> {
     window.scrollTo(0,0)
   }, [])
 
-  console.log(allProducts)
+  const handleAddToCart = (item) => {
+    addToCart(item)
+    setShowToast(true)
+    setTimeout(() => {
+      setShowToast(false)
+    }, 3000)
+  }
+
+  // pagination
+  const indexOfLastProduct = currentPage * productsPerPage
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage
+  const currentProducts = allProducts?.slice(indexOfFirstProduct, indexOfLastProduct)
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
   return (
     <div {...otherProps}>
@@ -49,7 +55,7 @@ const MainMallContainer = ({ toggleSidebar,topBarStyle, ...otherProps }) => {
             <div className="">
                 <Button styles="relative" aria-label="cart" linkTo="/cart">
                     <i class="fa-solid fa-bag-shopping"></i>
-                    <h2 className='absolute top-1 right-1 bg-black-gradient-2 px-[1px] py-[1px] h-5 w-5 flex-center text-white rounded-full text-sm'>0</h2>
+                  <h2 className='absolute top-1 right-1 bg-black-gradient-2 px-[1px] py-[1px] h-5 w-5 flex-center text-white rounded-full text-xs'>{cartItems.length > 9? "9+": cartItems.length}</h2>
                 </Button>
             </div>  
             <div className="w-12 h-12 cursor-pointer" tabIndex="0">
@@ -59,18 +65,18 @@ const MainMallContainer = ({ toggleSidebar,topBarStyle, ...otherProps }) => {
         {/* end of top bar */}
         {/* main */}
         <main role='main' className='pt-20 pb-10'>
+          <CartToast isVisible={showToast} />
           <h1 className="text-2xl font-bold mb-4 text-white text-center animate__animated animate__bounceInDown">Welcome to Mama online Mall</h1>
           {/* search bar */}
           <div className="w-full flex-col xs:flex-row flex items-center justify-between pb-6 gap-4">
             <button className='btn-glow bg-blue-gradient text-slate-800 py-2 px-5 rounded-[30px] z-[5] relative text-xs sm:text-sm category-btn'>Categories
               {/* categories box */}
               <ul className='absolute w-[200%] top-[105%] left-0 py-4 px-2 bg-primary rounded-md border-gradient category-box'>
-                <li className='w-100% h-10'>
-                  <Link to="" className='w-full h-full flex-center hover:bg-[rgba(51,187,207,.6)] text-white p-0 duration-300 tracking-wide rounded-md'>Electronics</Link>
-                </li>
-                <li className='w-100% h-10'>
-                  <Link to="" className='w-full h-full flex-center hover:bg-[rgba(51,187,207,.6)] text-white p-0 duration-300 tracking-wide rounded-md'>fashion</Link>
-                </li>
+                {allCategories?.map((category) => (
+                  <li key={category.id} className='w-100% h-10'>
+                    <Link to="" className='w-full h-full flex-center hover:bg-[rgba(51,187,207,.6)] text-white p-0 duration-300 tracking-wide rounded-md'>{category.name}</Link>
+                  </li>
+                ))}
               </ul>
               {/* end of categories box */}
             </button>
@@ -86,19 +92,19 @@ const MainMallContainer = ({ toggleSidebar,topBarStyle, ...otherProps }) => {
               <h2 className='text-gradient text-center text-2xl mt-5'>There are no products in our database.</h2>
             )}
           <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 py-5">
-            {/* Dummy product cards */}
-            {allProducts?.map((item) => {
+            {currentProducts?.map((item) => {
               return (
                 <Link 
                   key={item?.id} 
                   className="card p-2 rounded shadow border-gradient" 
                   tabIndex="0" 
-                  to={`/details/${item}?.id`} 
+                  to={`/details/${item?.slug}`} 
                   onClick={() => setProduct(item)}
                 >
-                  <div className="w-full" data-aos="fade-up" data-aos-delay="100">
+                  <div className="w-full relative" data-aos="fade-up" data-aos-delay="100">
+                    <div className="absolute bottom-2 right-2 rounded-[50%20%20%10%] p-2 bg-black-gradient text-cyan-200 text-sm">{item?.condition}</div>
                     <div className="w-full h-36 md:h-44 mb-2 border-gradient rounded-md p-1" >
-                      <img src={item?.image} alt="" className='w-full h-full object-contain' />
+                      <img src={item?.images[0].image} alt="" className='w-full h-full object-contain' />
                     </div>
                     <h3 className="font-bold text-white truncate">Product {item?.name}</h3>
                     <div className="flex items-center gap-2"> 
@@ -106,15 +112,25 @@ const MainMallContainer = ({ toggleSidebar,topBarStyle, ...otherProps }) => {
                       <p className="text-xl sm:text-2xl text-gradient" aria-label='new price'>$ {formatNumber(Number(item?.discounted_price))}</p>
                     </div>
                     <p className='truncate-3 text-white mb-2'>{item?.description}</p>
-                    <Button style={{
-                      padding: '6px 12px',
-                    }} title="Add to cart"/>
+                    <Button 
+                      style={{
+                        padding: '6px 12px',
+                      }} 
+                      title="Add to cart"
+                      onClick={()=> handleAddToCart(item)}
+                    />
                   </div>
                 </Link>
               )
               }
             )}
           </div>
+          <Pagination 
+            productsPerPage={productsPerPage} 
+            totalProducts={allProducts.length} 
+            paginate={paginate}
+            currentPage={currentPage}
+          />
         </main>
         {/* end of main */}
         <Footer />

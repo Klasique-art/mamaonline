@@ -32,28 +32,28 @@ const AuthProvider = ({children}) => {
     }, []);
 
     const login = async (username, password) => {
-    try {
-        const response = await loginApi.login(username, password)
-        console.log("login successful", response.data)
-        localStorage.setItem('token', response.data.key);
-        setUser(response.data.user);
-        return response.data;
-    } catch (error) {
-        console.log("login failed", error.response.data);
-    }
-    };
-
-    const register = async (username, email, password1, password2) => {
-        try {
-          const response = await registerApi.resister(username, email, password1, password2);
-          console.log("registered user successfully", response.data)
+      try {
+          const response = await loginApi.login(username, password)
+          console.log("login successful", response.data)
           localStorage.setItem('token', response.data.key);
           setUser(response.data.user);
           return response.data;
-        } catch (error) {
-          console.log("error registering user", error);
-        }
-      };
+      } catch (error) {
+          console.log("login failed", error.response.data);
+      }
+    };
+
+    const register = async (username, email, password1, password2) => {
+      try {
+        const response = await registerApi.resister(username, email, password1, password2);
+        console.log("registered user successfully", response.data)
+        localStorage.setItem('token', response.data.key);
+        setUser(response.data.user);
+        return response.data;
+      } catch (error) {
+        console.log("error registering user", error);
+      }
+    };
 
     const logout = async () => {
         try {

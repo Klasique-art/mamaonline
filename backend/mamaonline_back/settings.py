@@ -185,10 +185,20 @@ STATIC_ROOT = BASE_DIR / 'static'
 
 
 
+
+
 AUTHENTICATION_BACKENDS = [
+    'api.backends.EmailOrUsernameModelBackend',
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
+
+
+
+
+
+
+
 
 SITE_ID = 1
 
@@ -197,3 +207,8 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+
+REST_AUTH = {
+    'LOGIN_SERIALIZER': 'api.serializers.CustomLoginSerializer',
+}

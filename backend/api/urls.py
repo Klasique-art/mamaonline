@@ -11,7 +11,7 @@ from .views import (
     MessageViewSet,
     CouponViewSet
 )
-
+from .views import LoginView
 router = DefaultRouter()
 router.register(r'categories', CategoryViewSet)
 router.register(r'subcategories', SubCategoryViewSet)
@@ -25,4 +25,5 @@ router.register(r'coupons', CouponViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('login/', LoginView.as_view(), name='login'),
 ]

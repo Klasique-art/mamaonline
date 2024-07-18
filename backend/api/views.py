@@ -2,6 +2,9 @@ from rest_framework import viewsets, permissions, status, filters
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.views import APIView
+from django.contrib.auth import authenticate
+from rest_framework.authtoken.models import Token
 from .models import Category, SubCategory, Product, Order, Review, Message, Coupon, AttributeType, AttributeChoice, ProductAttribute
 from .serializers import (
     CategorySerializer, SubCategorySerializer, ProductSerializer, 
@@ -198,3 +201,20 @@ class CouponViewSet(viewsets.ModelViewSet):
         # Here you would typically apply the coupon to the user's cart or order
         # For this example, we'll just return the discount percentage
         return Response({"discount": coupon.discount})
+
+
+
+class LoginView(APIView):
+    def post(self, request):
+        username = request.data.get('username')
+        password = request.data.get('password')
+        user = authenticate(username=username, password=password)
+        if user:
+            token, _ = Token.objects.get_or_create(user=user)
+            return Response({
+                'token': token.key,
+                'user_id': user.pk,
+                'email': user.email
+            })
+        else:
+            return Response({"error": "Wrong Credentials"}, status=status.HTTP_400_BAD_REQUEST)

@@ -34,7 +34,7 @@ const Hero = () => {
       {/* end of left side */}
       {/* right side */}
       <div className="flex-1">
-        <img src={droneWelcome} alt="futuristic drones flying over the city with packages." className='w-[90%] mt-4 sm:mt-0 mx-auto sm:mx-[unset] sm:w-full sm:h-full relative z-[5] rounded-lg' />
+        <img src={droneWelcome} alt="futuristic drones flying over the city with packages." className='w-[90%] mt-4 sm:mt-0 mx-auto sm:mx-[unset] sm:w-full sm:h-full relative z-[5] rounded-lg' loading='lazy' />
 
         <div className="absolute right-0 z-[0] top-0 w-[20%] h-[15%] pink__gradient"></div>
         <div className="absolute right-0 z-[0] bottom-40 w-[10%] h-[10%] white__gradient"></div>

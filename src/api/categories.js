@@ -4,4 +4,4 @@ const endpoint = "/api/categories";
 
 const getCategories = () => client.get(endpoint);
 
-export default {getCategories}
+export default {getCategories} 

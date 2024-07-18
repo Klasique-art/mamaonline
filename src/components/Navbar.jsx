@@ -6,6 +6,8 @@ import 'animate.css'
 import logo1 from '../assets/logo1.png'
 import SearchButton from './SearchButton'
 import SearchInput from './SearchInput'
+import Button from './Button'
+import { useCartItems } from '../context/CartItemsProvider'
 
 const Navbar = () => {
   const [mobileNavToggle, setMobileNavToggle] = useState(false)
@@ -13,6 +15,7 @@ const Navbar = () => {
   const [showSearchBar, setShowSearchBar] = useState(false)
 
   const mobileNavMenuRef = useRef(null)
+  const { cartItems } = useCartItems()
 
   const handleScrollNav = () => {
     if(window.scrollY > 100) {
@@ -55,6 +58,22 @@ const Navbar = () => {
             to='/services' 
             className='text-white text-[1.1rem]'
           >services</Link>
+        </li>
+        <li>
+          <Button 
+            style={{
+              borderRadius: '50%',
+              width: '2.5rem',
+              height: '2.5rem',
+            }}
+            styles="flex items-center justify-center relative"
+            aria-label="shopping cart"
+            linkTo="/cart"
+          >
+            <i className="fas fa-shopping-cart"></i>
+            <span className="sr-only">shopping cart</span>
+            <h2 className='absolute -bottom-1 shadow-sm shadow-cyan-500 right-1 bg-black-gradient-2 px-[1px] py-[1px] h-5 w-5 flex-center text-white rounded-full text-xs'>{cartItems?.length || 0}</h2>
+          </Button>
         </li>
         <li>
             <Link 
@@ -102,6 +121,22 @@ const Navbar = () => {
             >services</Link>
           </li>
           <li>
+            <Button 
+              style={{
+                borderRadius: '50%',
+                width: '2.5rem',
+                height: '2.5rem',
+              }}
+              styles="flex items-center justify-center relative"
+              aria-label="shopping cart"
+              linkTo="/cart"
+            >
+              <i className="fas fa-shopping-cart"></i>
+              <span className="sr-only">shopping cart</span>
+              <h2 className='absolute -bottom-1 shadow-sm shadow-cyan-500 right-1 bg-black-gradient-2 px-[1px] py-[1px] h-5 w-5 flex-center text-white rounded-full text-xs'>{cartItems?.length || 0}</h2>
+            </Button>
+          </li>
+          <li>
             <Link 
               to='/auth'
               className='text-white text-[1.1rem]'
@@ -113,7 +148,7 @@ const Navbar = () => {
             />
           </li>
         </ul>
-      </button>
+      </button> 
       {/* end of mobile nav */}
 
       {/* search input field */}

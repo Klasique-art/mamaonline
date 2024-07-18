@@ -11,6 +11,9 @@ import 'animate.css'
 import './index.css';
 import './App.css';
 import ProductProvider from './context/ProductProvider';
+import AuthProvider from './context/AuthProvider'
+import AllProductsProvider from './context/AllProductsProvider';
+import CartItemsProvider from './context/CartItemsProvider';
 
 const LazyHomePage = React.lazy(() => import('./App'));
 const LazyAuthPage = React.lazy(() => import('./pages/AuthPage'));
@@ -21,6 +24,7 @@ const LazyForgotPasswordPage = React.lazy(() => import('./pages/ForgotPasswordPa
 const LazyFAQPage = React.lazy(() => import('./pages/FAQPage'));
 const LazyDetailsPage = React.lazy(() => import('./pages/DetailsPage'));
 const LazyCartPage = React.lazy(() => import('./pages/CartPage'));
+const LazyOrderPage = React.lazy(() => import('./pages/OrderPage'));
 
 const ErrorBoundary = ({ children }) => {
   try {
@@ -123,14 +127,30 @@ const router = createBrowserRouter([
       </React.Suspense>
     ),
   },
+  {
+    path: "/order",
+    element: (
+      <React.Suspense fallback="Loading page">
+        <ErrorBoundary>
+          <LazyOrderPage />
+        </ErrorBoundary>
+      </React.Suspense>
+    ),
+  },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <ProductProvider>
-      <RouterProvider router={router} />
-    </ProductProvider>
+    <AuthProvider>
+      <AllProductsProvider>
+        <ProductProvider>
+          <CartItemsProvider>
+            <RouterProvider router={router} />
+          </CartItemsProvider>
+        </ProductProvider>
+      </AllProductsProvider>
+    </AuthProvider>
   </React.StrictMode>
 );
 

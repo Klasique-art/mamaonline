@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import * as Yup from 'yup'
 
 import { SubmitButton, FormField, Form } from './form'
+import {useAuth} from '../context/AuthProvider' 
 
 const validationSchema = Yup.object().shape({
-    name: Yup.string().required("Please enter your name").min(2).label("Name"),
+    name: Yup.string().required("Please enter your name").min(3).label("Name"),
     email: Yup.string().required("Please enter email").email().label("Email"),
     password: Yup.string().required("Please insert password").min(8).label("Password").matches(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
@@ -13,11 +14,22 @@ const validationSchema = Yup.object().shape({
     confirmPassword: Yup.string()
         .oneOf([Yup.ref('password'), null], "Passwords must match")
         .required("Please confirm your password")
-})
+}) //
 
 const SignUpForm = () => {
     const [passwordVisible, setPasswordVisible] = useState(false)
     const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false)
+
+    const {register} = useAuth()
+
+    const handleSubmit = async ({name, email, password, confirmPassword}) => {
+        try {
+            await register(name.trim(), email.trim(), password, confirmPassword)
+            console.log({name, email, password, confirmPassword})
+        } catch (error) {
+            console.log("error signing up", error)
+        }
+    }
 
     return (
         <div className="w-full pb-6 px-5 flex-center flex-col rounded-lg">
@@ -32,7 +44,7 @@ const SignUpForm = () => {
             <div className="w-full ">
                 <Form
                     initialValues={{ name: '', email: '', password: '', confirmPassword: '' }}
-                    onSubmit={values => console.log(values)}
+                    onSubmit={handleSubmit}
                     validationSchema={validationSchema}
                 >
                     <div 

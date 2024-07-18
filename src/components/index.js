@@ -21,6 +21,8 @@ import Sidebar from "./Sidebar";
 import MainMallContainer from "./MainMallContainer";
 import Swipper from "./Swipper";
 import ReviewCard from "./ReviewCard";
+import Pagination from "./Pagination";
+import CartToast from "./CartToast";
 
 export { 
     Button, 
@@ -46,4 +48,6 @@ export {
     MainMallContainer,
     Swipper,
     ReviewCard,
+    Pagination,
+    CartToast,
 };

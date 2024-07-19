@@ -18,7 +18,7 @@ const DetailsPage = () => {
   const [totalPrice, setTotalPrice] = useState(0)
   const {addToCart} = useCartItems()
   const [showCartToast, setShowCartToast] = useState(false)
-  
+
   // fetch products
   useEffect(() => {
     fetchProducts()

@@ -25,6 +25,10 @@ const LazyFAQPage = React.lazy(() => import('./pages/FAQPage'));
 const LazyDetailsPage = React.lazy(() => import('./pages/DetailsPage'));
 const LazyCartPage = React.lazy(() => import('./pages/CartPage'));
 const LazyOrderPage = React.lazy(() => import('./pages/OrderPage'));
+const LazyOrderSuccess = React.lazy(() => import('./pages/OrderSuccess'));
+const LazyPayOnDelivery = React.lazy(() => import('./pages/PayOnDelivery'));
+const LazyPayWithCard = React.lazy(() => import('./pages/PayWithCard'));
+const LazyPayWithMobileMoney = React.lazy(() => import('./pages/PayWithMobileMoney'));
 
 const ErrorBoundary = ({ children }) => {
   try {
@@ -133,6 +137,46 @@ const router = createBrowserRouter([
       <React.Suspense fallback="Loading page">
         <ErrorBoundary>
           <LazyOrderPage />
+        </ErrorBoundary>
+      </React.Suspense>
+    ),
+  },
+  {
+    path: "/order-success",
+    element: (
+      <React.Suspense fallback="Loading page">
+        <ErrorBoundary>
+          <LazyOrderSuccess />
+        </ErrorBoundary>
+      </React.Suspense>
+    ),
+  },
+  {
+    path: "/pay-on-delivery",
+    element: (
+      <React.Suspense fallback="Loading page">
+        <ErrorBoundary>
+          <LazyPayOnDelivery />
+        </ErrorBoundary>
+      </React.Suspense>
+    ),
+  },
+  {
+    path: "/pay-with-card",
+    element: (
+      <React.Suspense fallback="Loading page">
+        <ErrorBoundary>
+          <LazyPayWithCard />
+        </ErrorBoundary>
+      </React.Suspense>
+    ),
+  },
+  {
+    path: "/pay-with-mobile-money",
+    element: (
+      <React.Suspense fallback="Loading page">
+        <ErrorBoundary>
+          <LazyPayWithMobileMoney />
         </ErrorBoundary>
       </React.Suspense>
     ),

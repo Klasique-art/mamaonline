@@ -11,14 +11,16 @@ import { useAllProducts } from '../context/AllProductsProvider'
 import { useCartItems } from '../context/CartItemsProvider'
 import Pagination from './Pagination'
 import CartToast from './CartToast'
+import ProductsLoader from './ProductsLoader'
 
 const MainMallContainer = ({ toggleSidebar,topBarStyle, ...otherProps }) => {
   const [currentPage, setCurrentPage] = useState(1)
   const [productsPerPage, setProductsPerPage] = useState(12)
-  const { allProducts, fetchProducts, allCategories, fetchCategories } = useAllProducts()
+  const { allProducts, fetchProducts, allCategories, fetchCategories, productsLoading } = useAllProducts()
   const { setProduct } = useProduct()
   const {cartItems, addToCart} = useCartItems()
   const [showToast, setShowToast] = useState(false)
+  const [selectedCategory, setSelectedCategory] = useState(null)
 
   // fetch products
   useEffect(() => {
@@ -38,10 +40,13 @@ const MainMallContainer = ({ toggleSidebar,topBarStyle, ...otherProps }) => {
     }, 3000)
   }
 
+  // filter products by category
+  const filteredProducts = selectedCategory ? allProducts?.filter((product) => product.category.name === selectedCategory) : allProducts
+
   // pagination
   const indexOfLastProduct = currentPage * productsPerPage
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage
-  const currentProducts = allProducts?.slice(indexOfFirstProduct, indexOfLastProduct)
+  const currentProducts = filteredProducts?.slice(indexOfFirstProduct, indexOfLastProduct)
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
@@ -58,8 +63,18 @@ const MainMallContainer = ({ toggleSidebar,topBarStyle, ...otherProps }) => {
                   <h2 className='absolute top-1 right-1 bg-black-gradient-2 px-[1px] py-[1px] h-5 w-5 flex-center text-white rounded-full text-xs'>{cartItems.length > 9? "9+": cartItems.length}</h2>
                 </Button>
             </div>  
-            <div className="w-12 h-12 cursor-pointer" tabIndex="0">
+            <div className="w-12 h-12 cursor-pointer relative user-image" tabIndex="0">
               <img src={pic1} alt="user" className='w-full h-full object-cover rounded-full' />
+              {/* user options */}
+              <ul className='w-40 rounded-md p-2 absolute top-[105%] border-gradient bg-black-gradient right-1 user-options-box'>
+                <li className='w-full h-10'>
+                  <Link to="" className='w-full h-full flex-center hover:bg-[rgba(51,187,207,.6)] text-white p-0 duration-300 tracking-wide rounded-md'>Upload details</Link>
+                </li>
+                <li className='w-full h-10'>
+                  <Link to="" className='w-full h-full flex-center hover:bg-[rgba(51,187,207,.6)] text-white p-0 duration-300 tracking-wide rounded-md'>Change password</Link>
+                </li>
+              </ul>
+              {/* end of user options */}
             </div>
         </div>
         {/* end of top bar */}
@@ -72,9 +87,24 @@ const MainMallContainer = ({ toggleSidebar,topBarStyle, ...otherProps }) => {
             <button className='btn-glow bg-blue-gradient text-slate-800 py-2 px-5 rounded-[30px] z-[5] relative text-xs sm:text-sm category-btn'>Categories
               {/* categories box */}
               <ul className='absolute w-[200%] top-[105%] left-0 py-4 px-2 bg-primary rounded-md border-gradient category-box'>
+                <li className='w-100% h-10'>
+                    <Link 
+                      className='w-full h-full flex-center hover:bg-[rgba(51,187,207,.6)] text-white p-0 duration-300 tracking-wide rounded-md'
+                      onClick={()=> {
+                        setSelectedCategory(null)
+                        setCurrentPage(1)
+                      }}
+                    >All</Link>
+                  </li>
                 {allCategories?.map((category) => (
                   <li key={category.id} className='w-100% h-10'>
-                    <Link to="" className='w-full h-full flex-center hover:bg-[rgba(51,187,207,.6)] text-white p-0 duration-300 tracking-wide rounded-md'>{category.name}</Link>
+                    <Link 
+                      className='w-full h-full flex-center hover:bg-[rgba(51,187,207,.6)] text-white p-0 duration-300 tracking-wide rounded-md'
+                      onClick={()=> {
+                        setSelectedCategory(category.name)
+                        setCurrentPage(1)
+                      }}
+                    >{category.name}</Link>
                   </li>
                 ))}
               </ul>
@@ -88,10 +118,11 @@ const MainMallContainer = ({ toggleSidebar,topBarStyle, ...otherProps }) => {
                }} styles="search-form-width animate__animated animate__bounceInDown" />
           </div>
           {/* end of search bar */}
-            {allProducts.length < 1 && (
+          <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 py-5 relative min-h-[50vh]">
+            {allProducts.length && !productsLoading < 1 && (
               <h2 className='text-gradient text-center text-2xl mt-5'>There are no products in our database.</h2>
             )}
-          <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 py-5">
+            {<ProductsLoader visible={productsLoading}/>}
             {currentProducts?.map((item) => {
               return (
                 <Link 
@@ -127,7 +158,7 @@ const MainMallContainer = ({ toggleSidebar,topBarStyle, ...otherProps }) => {
           </div>
           <Pagination 
             productsPerPage={productsPerPage} 
-            totalProducts={allProducts.length} 
+            totalProducts={filteredProducts.length} 
             paginate={paginate}
             currentPage={currentPage}
           />

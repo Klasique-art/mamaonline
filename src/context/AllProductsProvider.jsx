@@ -24,6 +24,7 @@ const AllProductsProvider = ({children}) => {
             } else {
                 console.log(error.message)
             }
+            setProductsLoading(false)
         }).finally(() => {
             setProductsLoading(false)
         })

@@ -25,7 +25,6 @@ const SignUpForm = () => {
     const handleSubmit = async ({name, email, password, confirmPassword}) => {
         try {
             await register(name.trim(), email.trim(), password, confirmPassword)
-            console.log({name, email, password, confirmPassword})
         } catch (error) {
             console.log("error signing up", error)
         }

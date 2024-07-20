@@ -29,6 +29,8 @@ const LazyOrderSuccess = React.lazy(() => import('./pages/OrderSuccess'));
 const LazyPayOnDelivery = React.lazy(() => import('./pages/PayOnDelivery'));
 const LazyPayWithCard = React.lazy(() => import('./pages/PayWithCard'));
 const LazyPayWithMobileMoney = React.lazy(() => import('./pages/PayWithMobileMoney'));
+const LazyTermsPage = React.lazy(() => import('./pages/TermsPage'));
+const LazyPrivacyPage = React.lazy(() => import('./pages/PrivacyPage'));
 
 const ErrorBoundary = ({ children }) => {
   try {
@@ -181,6 +183,26 @@ const router = createBrowserRouter([
       </React.Suspense>
     ),
   },
+  {
+    path: "/terms",
+    element: (
+      <React.Suspense fallback="Loading page">
+        <ErrorBoundary>
+          <LazyTermsPage />
+        </ErrorBoundary>
+      </React.Suspense>
+    ),
+  },
+  {
+    path: "/privacy",
+    element: (
+      <React.Suspense fallback="Loading page">
+        <ErrorBoundary>
+          <LazyPrivacyPage />
+        </ErrorBoundary>
+      </React.Suspense>
+    ),
+  }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

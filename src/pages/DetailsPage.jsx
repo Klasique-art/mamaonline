@@ -9,6 +9,94 @@ import { formatNumber } from '../utils/utils'
 import pic1 from '../assets/pic1.png'
 import { useCartItems } from '../context/CartItemsProvider'
 
+const reviews = [
+  {
+    id: 1,
+    img: pic1,
+    name: 'John Doe',
+    text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, quae.'
+  },
+  {
+    id: 2,
+    img: pic1,
+    name: 'Elsie Fisher',
+    text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, quae.'
+  },
+  {
+    id: 3,
+    img: pic1,
+    name: 'John Doe',
+    text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, quae.'
+  },
+  {
+    id: 4,
+    img: pic1,
+    name: 'Elsie Fisher',
+    text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, quae.'
+  },
+  {
+    id: 5,
+    img: pic1,
+    name: 'John Doe',
+    text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, quae.'
+  },
+  {
+    id: 6,
+    img: pic1,
+    name: 'Elsie Fisher',
+    text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, quae.'
+  },
+  {
+    id: 7,
+    img: pic1,
+    name: 'John Doe',
+    text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, quae.'
+  },
+  {
+    id: 8,
+    img: pic1,
+    name: 'Elsie Fisher',
+    text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, quae.'
+  },
+  {
+    id: 9,
+    img: pic1,
+    name: 'John Doe',
+    text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, quae.'
+  },
+  {
+    id: 10,
+    img: pic1,
+    name: 'Elsie Fisher',
+    text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, quae.'
+  },
+  {
+    id: 11,
+    img: pic1,
+    name: 'John Doe',
+    text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, quae.'
+  },
+  {
+    id: 12,
+    img: pic1,
+    name: 'Elsie Fisher',
+    text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, quae.'
+  },
+  {
+    id: 13,
+    img: pic1,
+    name: 'John Doe',
+    text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, quae.'
+  },
+  {
+    id: 14,
+    img: pic1,
+    name: 'Elsie Fisher',
+    text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, quae.'
+  },
+]
+
+
 const DetailsPage = () => {
   const [counter, setCounter] = useState(1)
   const [reviewBoxOpen, setReviewBoxOpen] = useState(false)
@@ -177,28 +265,18 @@ const DetailsPage = () => {
               <article role='region'>
                 <div className="article-wrapper">
                   <h2 className='text-gradient text-xl sm:text-2xl text-center mb-4'>reviews</h2>
-                  <div className="w-full flex flex-row items-center overflow-x-auto snap-x snap-mandatory review-container py-5 gap-4 relative">
+                  <div className="w-full flex flex-row items-center overflow-y-hidden overflow-x-auto snap-x snap-mandatory review-container py-5 gap-4 relative">
                     {/* review card */}
-                    <ReviewCard
-                      img={pic1}
-                      name="John Doe"
-                      text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, quae."
-                    />
-                    <ReviewCard
-                      img={pic1}
-                      name="Elsie Fisher"
-                      text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, quae."
-                    />
-                    <ReviewCard
-                      img={pic1}
-                      name="Jane Doe"
-                      text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, quae."
-                    />
-                    <ReviewCard
-                      img={pic1}
-                      name="Lina Wagner"
-                      text="occasionally furniture calm blue positive brown sun column since energy today softly scientific fed action happened man question spell forward state scared bill uncle."
-                    />
+                    {
+                      reviews.map(review => (
+                        <ReviewCard
+                          key={review.id}
+                          img={review.img}
+                          name={review.name}
+                          text={review.text}
+                        />
+                      ))
+                    }
                     {/* review card */}
                   </div>
                   {/* add your review box */}

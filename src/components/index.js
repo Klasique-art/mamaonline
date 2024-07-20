@@ -24,6 +24,7 @@ import ReviewCard from "./ReviewCard";
 import Pagination from "./Pagination";
 import CartToast from "./CartToast";
 import PaymentModal from "./PaymentModal";
+import MobileMoneyCard from "./MobileMoneyCard";
 
 export { 
     Button, 
@@ -51,5 +52,6 @@ export {
     ReviewCard,
     Pagination,
     CartToast,
-    PaymentModal
+    PaymentModal,
+    MobileMoneyCard
 };

@@ -7,6 +7,7 @@ import { formatNumber } from '../utils/utils';
 const OrderPage = () => {
   const location = useLocation();
   const { products } = location.state || {products: []};
+  console.log(products);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -71,7 +72,7 @@ const OrderPage = () => {
                           <div className="bg-cyan-700 py-4 px-6 rounded-md mb-4 flex flex-col sm:flex-row items-center justify-between" key={product?.id}>
                             <div className="">
                               <h3 className="text-lg mb-2">{product?.name}</h3>
-                              <h3 className="text-sm md:text-lg mb-2">Seller: {product?.seller?.username}</h3>
+                              <h3 className="text-sm md:text-lg mb-2">Seller: {product?.seller?.username || product?.seller}</h3>
                               <p className="text-sm md:text-lg mb-2">Quantity: {product?.quantity}</p>
                               <p className="text-sm md:text-lg mb-2">Price per item: Ghc {formatNumber(Number(product?.discounted_price))}</p>
                               <p className="text-sm md:text-lg mb-2">Total price: Ghc {formatNumber(Number(product?.totalPrice))}</p>

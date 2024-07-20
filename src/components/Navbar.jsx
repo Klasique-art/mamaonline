@@ -60,20 +60,15 @@ const Navbar = () => {
           >services</Link>
         </li>
         <li>
-          <Button 
-            style={{
-              borderRadius: '50%',
-              width: '2.5rem',
-              height: '2.5rem',
-            }}
-            styles="flex items-center justify-center relative"
+          <Link 
+            className="bg-blue-gradient text-slate-800 w-[40px] h-[40px] rounded-full duration-300 hover:-translate-y-1 text-xl relative flex items-center justify-center"
             aria-label="shopping cart"
-            linkTo="/cart"
+            to="/cart"
           >
             <i className="fas fa-shopping-cart"></i>
             <span className="sr-only">shopping cart</span>
             <h2 className='absolute -bottom-1 shadow-sm shadow-cyan-500 right-1 bg-black-gradient-2 px-[1px] py-[1px] h-5 w-5 flex-center text-white rounded-full text-xs'>{cartItems?.length || 0}</h2>
-          </Button>
+          </Link>
         </li>
         <li>
             <Link 

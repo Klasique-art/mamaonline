@@ -19,19 +19,19 @@ const Footer = () => {
               <Link to="/">home</Link>
             </li>
             <li>
-              <Link to="/">home</Link>
+              <Link to="/services">services</Link>
             </li>
           </ul>
           <ul className='flex-1'>
             <h4 className='uppercase text-gradient'>resources</h4>
             <li>
-              <Link to="/">FAQ</Link>
+              <Link to="/faq">FAQ</Link>
             </li>
             <li>
-              <Link to="/">Terms and conditions</Link>
+              <Link to="/terms">Terms and conditions</Link>
             </li>
             <li>
-              <Link to="/">Privacy policy</Link>
+              <Link to="/privacy">Privacy policy</Link>
             </li>
           </ul>
         </div>

@@ -14,6 +14,7 @@ import ProductProvider from './context/ProductProvider';
 import AuthProvider from './context/AuthProvider'
 import AllProductsProvider from './context/AllProductsProvider';
 import CartItemsProvider from './context/CartItemsProvider';
+import { LoadingAnimation } from './components';
 
 const LazyHomePage = React.lazy(() => import('./App'));
 const LazyAuthPage = React.lazy(() => import('./pages/AuthPage'));
@@ -44,7 +45,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <React.Suspense fallback="Loading page">
+      <React.Suspense fallback={<LoadingAnimation />}>
         <ErrorBoundary>
           <LazyHomePage />
         </ErrorBoundary>
@@ -54,7 +55,7 @@ const router = createBrowserRouter([
   {
     path: "/auth",
     element: (
-      <React.Suspense fallback="Loading page">
+      <React.Suspense fallback={<LoadingAnimation />}>
         <ErrorBoundary>
           <LazyAuthPage />
         </ErrorBoundary>
@@ -64,7 +65,7 @@ const router = createBrowserRouter([
       {
         path: "forgot-password",
         element: (
-          <React.Suspense fallback="Loading page">
+          <React.Suspense fallback={<LoadingAnimation />}>
             <ErrorBoundary>
               <LazyForgotPasswordPage />
             </ErrorBoundary>
@@ -76,7 +77,7 @@ const router = createBrowserRouter([
   {
     path: "/testimonials",
     element: (
-      <React.Suspense fallback="Loading page">
+      <React.Suspense fallback={<LoadingAnimation />}>
         <ErrorBoundary>
           <LazyTestimonialsPage />
         </ErrorBoundary>
@@ -86,7 +87,7 @@ const router = createBrowserRouter([
   {
     path: "/services",
     element: (
-      <React.Suspense fallback="Loading page">
+      <React.Suspense fallback={<LoadingAnimation />}>
         <ErrorBoundary>
           <LazyServicesPage />
         </ErrorBoundary>
@@ -96,7 +97,7 @@ const router = createBrowserRouter([
   {
     path: "/mall",
     element: (
-      <React.Suspense fallback="Loading page">
+      <React.Suspense fallback={<LoadingAnimation />}>
         <ErrorBoundary>
           <LazyMallPage />
         </ErrorBoundary>
@@ -106,7 +107,7 @@ const router = createBrowserRouter([
   {
     path: "/faq",
     element: (
-      <React.Suspense fallback="Loading page">
+      <React.Suspense fallback={<LoadingAnimation />}>
         <ErrorBoundary>
           <LazyFAQPage />
         </ErrorBoundary>
@@ -116,7 +117,7 @@ const router = createBrowserRouter([
   {
     path: "/details/:slug",
     element: (
-      <React.Suspense fallback="Loading page">
+      <React.Suspense fallback={<LoadingAnimation />}>
         <ErrorBoundary>
           <LazyDetailsPage />
         </ErrorBoundary>
@@ -126,7 +127,7 @@ const router = createBrowserRouter([
   {
     path: "/cart",
     element: (
-      <React.Suspense fallback="Loading page">
+      <React.Suspense fallback={<LoadingAnimation />}>
         <ErrorBoundary>
           <LazyCartPage />
         </ErrorBoundary>
@@ -136,7 +137,7 @@ const router = createBrowserRouter([
   {
     path: "/order",
     element: (
-      <React.Suspense fallback="Loading page">
+      <React.Suspense fallback={<LoadingAnimation />}>
         <ErrorBoundary>
           <LazyOrderPage />
         </ErrorBoundary>
@@ -146,7 +147,7 @@ const router = createBrowserRouter([
   {
     path: "/order-success",
     element: (
-      <React.Suspense fallback="Loading page">
+      <React.Suspense fallback={<LoadingAnimation />}>
         <ErrorBoundary>
           <LazyOrderSuccess />
         </ErrorBoundary>
@@ -156,7 +157,7 @@ const router = createBrowserRouter([
   {
     path: "/pay-on-delivery",
     element: (
-      <React.Suspense fallback="Loading page">
+      <React.Suspense fallback={<LoadingAnimation />}>
         <ErrorBoundary>
           <LazyPayOnDelivery />
         </ErrorBoundary>
@@ -166,7 +167,7 @@ const router = createBrowserRouter([
   {
     path: "/pay-with-card",
     element: (
-      <React.Suspense fallback="Loading page">
+      <React.Suspense fallback={<LoadingAnimation />}>
         <ErrorBoundary>
           <LazyPayWithCard />
         </ErrorBoundary>
@@ -176,7 +177,7 @@ const router = createBrowserRouter([
   {
     path: "/pay-with-mobile-money",
     element: (
-      <React.Suspense fallback="Loading page">
+      <React.Suspense fallback={<LoadingAnimation />}>
         <ErrorBoundary>
           <LazyPayWithMobileMoney />
         </ErrorBoundary>
@@ -186,7 +187,7 @@ const router = createBrowserRouter([
   {
     path: "/terms",
     element: (
-      <React.Suspense fallback="Loading page">
+      <React.Suspense fallback={<LoadingAnimation />}>
         <ErrorBoundary>
           <LazyTermsPage />
         </ErrorBoundary>
@@ -196,7 +197,7 @@ const router = createBrowserRouter([
   {
     path: "/privacy",
     element: (
-      <React.Suspense fallback="Loading page">
+      <React.Suspense fallback={<LoadingAnimation />}>
         <ErrorBoundary>
           <LazyPrivacyPage />
         </ErrorBoundary>

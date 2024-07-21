@@ -1,0 +1,80 @@
+:root {
+    --cubeGradientBlack: #11101d;
+    --cubeGradientGreen: #33bbcf;
+    --glowGreen: #33bbcf;
+    --glowGreenOpac2: rgba(51, 187, 207,.2);
+    --glowGreenOpac4: rgba(51, 187, 207,.4);
+    --glowGreenOpac6: rgba(51, 187, 207,.6);
+    --glowGreenOpac8: rgba(51, 187, 207,.8);
+    --glowGreenOpac10: rgba(51, 187, 207,1);
+}
+
+/* box lighting effect */
+.cube {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    transform-style: preserve-3d;
+    animation: box 4s linear infinite;
+    -webkit-animation: box 4s linear infinite;
+}
+/* animation for box */
+@keyframes box {
+    0% {
+    transform: rotateX(-30deg) rotateY(0deg);
+    }
+    100% {
+    transform: rotateX(-30deg) rotateY(360deg);
+    }
+}
+.cube div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+}
+.cube div span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(var(--cubeGradientBlack),var(--cubeGradientGreen));
+    transform: rotateY(calc(90deg * var(--i))) translateZ(150px);
+}
+.cube .top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 300px;
+    height: 300px;
+    background: #222;
+    transform: rotateX(90deg) translateZ(150px);
+    color: var(--glowGreenOpac10);
+    text-shadow: 0 0 10px var(--glowGreenOpac2),
+                 0 0 50px var(--glowGreenOpac8)
+                 0 0 50px var(--glowGreenOpac8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+}
+.cube .top::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 300px;
+    height: 300px;
+    background: var(--glowGreen);
+    transform: translateZ(-380px);
+    filter: blur(20px);
+    box-shadow: 0 0 120px var(--glowGreenOpac2),
+                0 0 200px var(--glowGreenOpac4),
+                0 0 300px var(--glowGreenOpac6),
+                0 0 400px var(--glowGreenOpac8),
+                0 0 500px var(--glowGreenOpac10);
+}
+/* end of box lighting effect */

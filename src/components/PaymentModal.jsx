@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const PaymentModal = ({ isOpen, onClose, onConfirm }) => {
   if (!isOpen) return null;
-
+ 
   return (
 
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-[10000000] ">

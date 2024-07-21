@@ -1,39 +1,7 @@
 import React, { useEffect } from 'react';
 import { Navbar, Footer } from '../components';
 import styles from '../config/styles';
-
-const privacyPolicies = [
-  {
-    id: 1,
-    title: 'Introduction',
-    content: 'We value your privacy and are committed to protecting your personal information. This policy explains how we collect, use, and share your data.',
-  },
-  {
-    id: 2,
-    title: 'Information Collection',
-    content: 'We collect information that you provide to us directly, such as when you create an account, make a purchase, or contact us for support.',
-  },
-  {
-    id: 3,
-    title: 'Use of Information',
-    content: 'We use the information we collect to provide, maintain, and improve our services, as well as to communicate with you and personalize your experience.',
-  },
-  {
-    id: 4,
-    title: 'Sharing of Information',
-    content: 'We may share your information with third parties in certain circumstances, such as with service providers who perform functions on our behalf or as required by law.',
-  },
-  {
-    id: 5,
-    title: 'Data Security',
-    content: 'We implement appropriate security measures to protect your data from unauthorized access, alteration, disclosure, or destruction.',
-  },
-  {
-    id: 6,
-    title: 'Changes to this Policy',
-    content: 'We may update this privacy policy from time to time. We will notify you of any significant changes by posting the new policy on our website.',
-  },
-];
+import { privacyPolicies } from '../data/infoData';
 
 const PrivacyPage = () => {
   useEffect(() => {

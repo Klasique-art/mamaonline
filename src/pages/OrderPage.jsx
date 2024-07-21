@@ -1,15 +1,22 @@
 import React, {useState} from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Navbar, Footer, Button, PaymentModal } from '../components';
+import { Navbar, Footer, PaymentModal, ChangeUseInfoModal } from '../components';
 import styles from '../config/styles';
 import { formatNumber } from '../utils/utils';
 
 const OrderPage = () => {
   const location = useLocation();
   const { products } = location.state || {products: []};
-  console.log(products);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isChangeUserInfoModalOpen, setIsChangeUserInfoModalOpen] = useState(false);
+  const [userInfo, setUserInfo] = useState({
+                                    name: 'John Doe',
+                                    email: 'fe@gna.co',
+                                    phone: '024 123 4567',
+                                    address: '123, Accra, Ghana',
+                                  });
   const navigate = useNavigate();
+  const {name, email, phone, address} = userInfo;
 
   const grandTotal = products[products?.length - 1]?.grandTotal;
   const singleItemGrandTotal = products?.map(product => product.totalPrice);
@@ -20,6 +27,19 @@ const OrderPage = () => {
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+  };
+
+  const handleOpenUserInfoModal = () => {
+    setIsChangeUserInfoModalOpen(true);
+  };
+
+  const handleCloseUserInfoModal = () => {
+    setIsChangeUserInfoModalOpen(false);
+  };
+
+  const handleUpdateUserInfo = (formData) => {
+    setUserInfo(formData);
+    setIsChangeUserInfoModalOpen(false);
   };
 
   const handleConfirmOrder = (paymentMethod) => {
@@ -82,7 +102,6 @@ const OrderPage = () => {
                             </figure>
                           </div>
                         )
-                    
                     )})}
                   </div>
                   {/* end of order details */}
@@ -90,10 +109,16 @@ const OrderPage = () => {
                   <div className="">
                     <h2 className="text-xl sm:text-2xl md:text-3xl text-gradient mb-4">User Details</h2>
                     <div className="bg-cyan-600 py-4 px-6 rounded-md mb-4">
-                      <p className="text-sm mb-2">Name: John Doe</p>
-                      <p className="text-sm mb-2">Email: fe@gna.co</p>
-                      <p className="text-sm mb-2">Phone: 024 123 4567</p>
-                      <p className="text-sm mb-2">Address: 123, Accra, Ghana</p>
+                      <p className="text-sm sm:text-lg mb-2">Name: {name}</p>
+                      <p className="text-sm sm:text-lg mb-2">Email: {email}</p>
+                      <p className="text-sm sm:text-lg mb-2">Phone: {phone}</p>
+                      <p className="text-sm sm:text-lg mb-2">Address: {address}</p>
+                      <div className="">
+                        <button 
+                          className='text-white bg-black-gradient rounded py-2 px-4'
+                          onClick={handleOpenUserInfoModal}
+                        >Change</button>
+                      </div>
                     </div>
                   </div>
                   {/* end of user details */}
@@ -112,11 +137,16 @@ const OrderPage = () => {
         </div>
       </main>
       <Footer />
-      {/* modal */}
+      {/* modals */}
       <PaymentModal 
         isOpen={isModalOpen} 
         onClose={handleCloseModal} 
         onConfirm={handleConfirmOrder} 
+      />
+      <ChangeUseInfoModal 
+        isOpen={isChangeUserInfoModalOpen} 
+        onClose={handleCloseUserInfoModal} 
+        onSubmit={handleUpdateUserInfo}
       />
     </div>
   );

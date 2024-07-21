@@ -106,6 +106,7 @@ const DetailsPage = () => {
   const [totalPrice, setTotalPrice] = useState(0)
   const {addToCart} = useCartItems()
   const [showCartToast, setShowCartToast] = useState(false)
+  const [selectedAttributes, setSelectedAttributes] = useState({});
 
   // fetch products
   useEffect(() => {
@@ -116,6 +117,11 @@ const DetailsPage = () => {
   useEffect(() => {
     if (product) {
       setTotalPrice(Number(product?.discounted_price) * counter);
+      const initialAttributes = {};
+      product.attributes.forEach((attr) => {
+        initialAttributes[attr.attribute_type] = attr.value;
+      });
+      setSelectedAttributes(initialAttributes);
     }
   }, [product, counter]);
 
@@ -148,50 +154,16 @@ const DetailsPage = () => {
     }, 3000)
   }
 
+  const handleAttributeChange = (type, value) => {
+    setSelectedAttributes((prevAttributes) => ({
+      ...prevAttributes,
+      [type]: value,
+    }));
+  };
+
   useEffect(() => {
     window.scrollTo(0,0)
   }, [])
-
-  const renderCategorySpecific = () => {
-    switch (product?.category) {
-      case 3:
-        return (
-          <div className="mb-4" data-aos="fade-up" data-aos-delay="300">
-            <label htmlFor="size" className="text-white">Choose Size:</label>
-            <select id="size" className="bg-primary text-white ml-2 p-2 rounded">
-              <option value="S">Small</option>
-              <option value="M">Medium</option>
-              <option value="L">Large</option>
-              <option value="XL">Extra Large</option>
-            </select>
-          </div>
-        );
-      case 1:
-        return (
-          <div className="mb-4" data-aos="fade-up" data-aos-delay="300">
-            <label htmlFor="storage" className="text-white">Choose Storage:</label>
-            <select id="storage" className="bg-primary text-white ml-2 p-2 rounded">
-              <option value="64GB">64GB</option>
-              <option value="128GB">128GB</option>
-              <option value="256GB">256GB</option>
-            </select>
-          </div>
-        );
-      case 2:
-        return (
-          <div className="mb-4" data-aos="fade-up" data-aos-delay="300">
-            <label htmlFor="capacity" className="text-white">Choose Capacity:</label>
-            <select id="capacity" className="bg-primary text-white ml-2 p-2 rounded">
-              <option value="1L">1L</option>
-              <option value="1.8L">1.8L</option>
-              <option value="2L">2L</option>
-            </select>
-          </div>
-        );
-      default:
-        return null;
-    }
-  };
   
   return (
     <div className="bg-primary w-full overflow-hidden relative">
@@ -244,9 +216,23 @@ const DetailsPage = () => {
                       <p className='text-sm'>total price</p>
                       <h3 className="text-white">Ghc {formatNumber(Number(totalPrice))}</h3>
                     </div>
-                    {/* category specific box */}
-                    {renderCategorySpecific()}
-                    {/* end of category specific box */}
+                    {/* attribute specific box */}
+                    <div className="my-4" data-aos="fade-up" data-aos-delay="300">
+                      {product?.attributes.map((attribute) => (
+                        <div key={attribute.attribute_type} className="my-2">
+                          <label htmlFor={attribute.attribute_type} className="text-white">{`Choose ${attribute.attribute_type}:`}</label>
+                          <select
+                            id={attribute.attribute_type}
+                            className="bg-primary text-white ml-2 p-2 rounded"
+                            value={selectedAttributes[attribute.attribute_type]}
+                            onChange={(e) => handleAttributeChange(attribute.attribute_type, e.target.value)}
+                          >
+                            <option value={attribute.value}>{attribute.value}</option>
+                          </select>
+                        </div>
+                      ))}
+                    </div>
+                    {/* end of attribute specific box */}
                     <div className="flex items-center justify-between py-4" data-aos="fade-up" data-aos-delay="400">
                       <Button
                         title="add to cart"

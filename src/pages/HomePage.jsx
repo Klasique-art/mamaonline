@@ -2,7 +2,7 @@ import React from 'react'
 
 // custom imports
 import styles from '../config/styles'
-import { Navbar, Hero, Stats, ServiceHero, ServiceHeroReverse, Button, Testimonials, SubscribeCard, Footer } from '../components'
+import { Navbar, Hero, Stats, ServiceHero, ServiceHeroReverse, Button, Testimonials, SubscribeCard, Footer, } from '../components'
 import homeShopImg from '../assets/home_shop.png'
 import mallImg from '../assets/mall.png'
 

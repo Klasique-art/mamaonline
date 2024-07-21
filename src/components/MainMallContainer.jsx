@@ -118,10 +118,10 @@ const MainMallContainer = ({ toggleSidebar,topBarStyle, ...otherProps }) => {
                }} styles="search-form-width animate__animated animate__bounceInDown" />
           </div>
           {/* end of search bar */}
-          <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 py-5 relative min-h-[50vh]">
-            {allProducts.length < 1 && !productsLoading < 1 && (
+            {allProducts.length < 1 && !productsLoading && (
               <h2 className='text-gradient text-center text-2xl mt-5'>There are no products in our database.</h2>
             )}
+          <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 py-5 relative min-h-[50vh]">
             {<ProductsLoader visible={productsLoading}/>}
             {currentProducts?.map((item) => {
               return (

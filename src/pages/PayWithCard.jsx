@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Footer } from '../components';
@@ -31,10 +31,13 @@ const PayWithCard = () => {
   };
 
   const handlePay = () => {
-    
     alert("Payment successful! Order confirmed.");
     navigate('/order-success');
   };
+
+  useEffect(()=> {
+    window.scrollTo(0,0)
+  }, [])
 
   return (
     <div className='bg-primary w-full overflow-hidden relative'>
@@ -55,6 +58,7 @@ const PayWithCard = () => {
                                     value={cardDetails.number} 
                                     onChange={handleInputChange} 
                                     required 
+                                    maxlength="19"
                                     className='w-full border-gradient rounded-[30px] py-1 px-4 bg-transparent text-white'
                                 />
                                 <input 

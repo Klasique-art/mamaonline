@@ -1,34 +1,7 @@
 import React, { useEffect } from 'react';
 import { Navbar, Footer } from '../components';
 import styles from '../config/styles';
-
-const terms = [
-  {
-    id: 1,
-    title: 'Introduction',
-    content: 'Welcome to our website. By accessing and using our services, you agree to comply with and be bound by the following terms and conditions.',
-  },
-  {
-    id: 2,
-    title: 'User Responsibilities',
-    content: 'As a user, you agree to use our services for lawful purposes and in a way that does not infringe the rights of others.',
-  },
-  {
-    id: 3,
-    title: 'Account Security',
-    content: 'You are responsible for maintaining the confidentiality of your account information and for all activities that occur under your account.',
-  },
-  {
-    id: 4,
-    title: 'Limitation of Liability',
-    content: 'We are not liable for any direct, indirect, incidental, or consequential damages arising from your use of our services.',
-  },
-  {
-    id: 5,
-    title: 'Changes to Terms',
-    content: 'We reserve the right to update or modify these terms at any time without prior notice. Your continued use of our services constitutes your acceptance of the revised terms.',
-  },
-];
+import { terms } from '../data/infoData';
 
 const TermsPage = () => {
   useEffect(() => {

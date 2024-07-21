@@ -1,34 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Navbar, Footer } from '../components';
 import styles from '../config/styles';
-
-const faqs = [
-  {
-    id: 1,
-    question: 'What is your return policy?',
-    answer: 'We offer hassle-free returns within 30 days of purchase. Please ensure the product is in its original condition.',
-  },
-  {
-    id: 2,
-    question: 'How can I track my order?',
-    answer: 'You can track your order using the tracking number provided in the confirmation email or by logging into your account on our website.',
-  },
-  {
-    id: 3,
-    question: 'Do you offer international shipping?',
-    answer: 'Yes, we offer international shipping to selected countries. Shipping fees and delivery times vary depending on the destination.',
-  },
-  {
-    id: 4,
-    question: 'How can I contact customer support?',
-    answer: 'You can contact our customer support team 24/7 via email, phone, or live chat on our website.',
-  },
-  {
-    id: 5,
-    question: 'What payment methods do you accept?',
-    answer: 'We accept various payment methods, including credit/debit cards, mobile money, and online payment platforms.',
-  },
-];
+import { faqs } from '../data/infoData';
 
 const FAQPage = () => {
   const [activeFAQ, setActiveFAQ] = useState(null);

@@ -25,6 +25,8 @@ import Pagination from "./Pagination";
 import CartToast from "./CartToast";
 import PaymentModal from "./PaymentModal";
 import MobileMoneyCard from "./MobileMoneyCard";
+import LoadingAnimation from "./LoadingAnimation";
+import ChangeUseInfoModal from "./ChangeUseInfoModal";
 
 export { 
     Button, 
@@ -53,5 +55,7 @@ export {
     Pagination,
     CartToast,
     PaymentModal,
-    MobileMoneyCard
+    MobileMoneyCard,
+    LoadingAnimation,
+    ChangeUseInfoModal
 };

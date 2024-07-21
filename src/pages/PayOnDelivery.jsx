@@ -16,7 +16,6 @@ const PayOnDelivery = () => {
 
   const handlePay = (e) => {
     e.preventDefault();
-    // Handle pay on delivery logic here
     console.log(phoneNumber)
     setPhoneNumber('')
     // navigate('/order-success');

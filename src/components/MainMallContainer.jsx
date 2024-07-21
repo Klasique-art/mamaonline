@@ -6,7 +6,6 @@ import pic1 from '../assets/pic1.png'
 import { formatNumber } from '../utils/utils'
 import SearchInput from './SearchInput'
 import Footer from './Footer'
-import { useProduct } from '../context/ProductProvider'
 import { useAllProducts } from '../context/AllProductsProvider'
 import { useCartItems } from '../context/CartItemsProvider'
 import Pagination from './Pagination'
@@ -17,7 +16,6 @@ const MainMallContainer = ({ toggleSidebar,topBarStyle, ...otherProps }) => {
   const [currentPage, setCurrentPage] = useState(1)
   const [productsPerPage, setProductsPerPage] = useState(12)
   const { allProducts, fetchProducts, allCategories, fetchCategories, productsLoading } = useAllProducts()
-  const { setProduct } = useProduct()
   const {cartItems, addToCart} = useCartItems()
   const [showToast, setShowToast] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState(null)
@@ -130,7 +128,6 @@ const MainMallContainer = ({ toggleSidebar,topBarStyle, ...otherProps }) => {
                   className="card p-2 rounded shadow border-gradient" 
                   tabIndex="0" 
                   to={`/details/${item?.slug}`} 
-                  onClick={() => setProduct(item)}
                 >
                   <div className="w-full relative" data-aos="fade-up" data-aos-delay="100">
                     <div className="absolute bottom-2 right-2 rounded-[50%20%20%10%] p-2 bg-black-gradient text-cyan-200 text-sm">{item?.condition}</div>

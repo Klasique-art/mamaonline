@@ -61,6 +61,12 @@ const Navbar = () => {
         </li>
         <li>
           <Link 
+            to='/contact' 
+            className='text-white text-[1.1rem]'
+          >contact us</Link>
+        </li>
+        <li>
+          <Link 
             className="bg-blue-gradient text-slate-800 w-[40px] h-[40px] rounded-full duration-300 hover:-translate-y-1 text-xl relative flex items-center justify-center"
             aria-label="shopping cart"
             to="/cart"

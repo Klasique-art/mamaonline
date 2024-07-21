@@ -104,7 +104,8 @@ const TestimonialsPage = () => {
     setNewTestimonial(value);
   };
 
-  const handleAddTestimonial = () => {
+  const handleAddTestimonial = (e) => {
+    e.preventDefault();
     setShowForm(false);
   };
 
@@ -149,7 +150,7 @@ const TestimonialsPage = () => {
               </div>
               {showForm && (
                 <div className="flex justify-center mt-8">
-                  <form className='bg-black-gradient p-6 rounded w-full sm:w-[500px] flex flex-col gap-4 items-center shadow-lg'>
+                  <form className='bg-black-gradient p-6 rounded w-full sm:w-[500px] flex flex-col gap-4 items-center shadow-lg' onSubmit={handleAddTestimonial}>
                     <textarea 
                       name="msg" 
                       placeholder="Your Testimonial" 
@@ -160,8 +161,7 @@ const TestimonialsPage = () => {
                       className='w-full border-gradient rounded h-44 py-1 px-4 bg-transparent text-white resize-none'
                     />
                     <button 
-                      type="button" 
-                      onClick={handleAddTestimonial} 
+                      type="submit" 
                       className='text-primary bg-blue-gradient rounded py-2 px-4 btn-glow'
                     >
                       Submit Testimonial

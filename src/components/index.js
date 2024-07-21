@@ -27,6 +27,7 @@ import PaymentModal from "./PaymentModal";
 import MobileMoneyCard from "./MobileMoneyCard";
 import LoadingAnimation from "./LoadingAnimation";
 import ChangeUseInfoModal from "./ChangeUseInfoModal";
+import Alert from "./Alert";
 
 export { 
     Button, 
@@ -57,5 +58,6 @@ export {
     PaymentModal,
     MobileMoneyCard,
     LoadingAnimation,
-    ChangeUseInfoModal
+    ChangeUseInfoModal,
+    Alert
 };

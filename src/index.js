@@ -10,7 +10,6 @@ import 'animate.css'
 // custom imports
 import './index.css';
 import './App.css';
-import ProductProvider from './context/ProductProvider';
 import AuthProvider from './context/AuthProvider'
 import AllProductsProvider from './context/AllProductsProvider';
 import CartItemsProvider from './context/CartItemsProvider';
@@ -32,6 +31,7 @@ const LazyPayWithCard = React.lazy(() => import('./pages/PayWithCard'));
 const LazyPayWithMobileMoney = React.lazy(() => import('./pages/PayWithMobileMoney'));
 const LazyTermsPage = React.lazy(() => import('./pages/TermsPage'));
 const LazyPrivacyPage = React.lazy(() => import('./pages/PrivacyPage'));
+const LazyContactPage = React.lazy(() => import('./pages/ContactPage'));
 
 const ErrorBoundary = ({ children }) => {
   try {
@@ -203,7 +203,17 @@ const router = createBrowserRouter([
         </ErrorBoundary>
       </React.Suspense>
     ),
-  }
+  },
+  {
+    path: "/contact",
+    element: (
+      <React.Suspense fallback={<LoadingAnimation />}>
+        <ErrorBoundary>
+          <LazyContactPage />
+        </ErrorBoundary>
+      </React.Suspense>
+    ),
+  },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -211,11 +221,9 @@ root.render(
   <React.StrictMode>
     <AuthProvider>
       <AllProductsProvider>
-        <ProductProvider>
           <CartItemsProvider>
             <RouterProvider router={router} />
           </CartItemsProvider>
-        </ProductProvider>
       </AllProductsProvider>
     </AuthProvider>
   </React.StrictMode>

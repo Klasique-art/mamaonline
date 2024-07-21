@@ -14,6 +14,12 @@ const FAQPage = () => {
     setActiveFAQ(activeFAQ === id ? null : id);
   };
 
+  const handleKeyDown = (event, id) => {
+    if (event.key === 'Enter') {
+      toggleFAQ(id);
+    }
+  };
+
   return (
     <div className="bg-primary w-full overflow-hidden relative">
       {/* Navbar */}
@@ -37,8 +43,11 @@ const FAQPage = () => {
                   key={faq.id} 
                   className={`bg-black-gradient-2 p-6 rounded-lg w-full md:w-[600px] shadow-lg cursor-pointer transition-all duration-300 ${activeFAQ === faq.id ? 'shadow-lg scale-105' : ''}`} 
                   onClick={() => toggleFAQ(faq.id)}
+                  onKeyDown={(e) => handleKeyDown(e, faq.id)}
                   data-aos="fade-up" 
                   data-aos-delay={faq.id * 100}
+                  tabIndex="0"
+                  aria-expanded={activeFAQ === faq.id}
                 >
                   <div className="flex justify-between items-center mb-4">
                     <h3 className="text-2xl font-semibold">{faq.question}</h3>
